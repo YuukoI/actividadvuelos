@@ -1,11 +1,14 @@
 package com.app.TP_DESI2023.Services;
 
+
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.TP_DESI2023.Entitys.Avion;
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Repositorys.VueloRepository;
 
@@ -40,6 +43,13 @@ public class VueloServiceImp implements VueloService {
 	public Optional<Vuelo> obtenerVueloPorNro(String nroVuelo) {
 		return vueloRepository.findById(nroVuelo);
 	}
-	
+
+	@Override
+	public List<Vuelo> obtenerVuelosOrdenadosPorFechaHora() {
+		List<Vuelo> vuelos = vueloRepository.findAll();
+        vuelos.sort(Comparator.comparing(Vuelo::getFechaHora));
+        return vuelos;
+	}
+
 	
 }
