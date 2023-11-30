@@ -46,22 +46,24 @@
             <!-- Precio del Pasaje -->
            <div class="form-group">
     <label for="precioBruto">Precio del Pasaje:</label>
-    <input type="number" class="form-control" id="precioBrutoInput" name="precioBrutoInput" placeholder="Ingrese el precio" />
+    <input type="number" class="form-control" id="precioBrutoInput" name="precioBrutoInput" placeholder="Ingrese el precio" step="any" pattern="\d+(\.\d{1,2})?" />
 </div>
 
             <!-- Fecha y Hora de Partida -->
-            <div class="form-group">
+           <div class="form-group">
                 <label for="fechaHora">Fecha y Hora de Partida:</label>
-<input type="datetime-local" th:field="*{fechaHora}" pattern="yyyy-MM-ddTHH:mm" />
-            </div>
+            <input type="datetime-local" th:field="*{fechaHora}" pattern="yyyy-MM-ddTHH:mm" />
+          </div>
 
             <!-- Avión (Lista de selección) -->
-            <div class="form-group">
-                <label for="avion">Avión:</label>
-                <select class="form-control" th:field="*{avion}">
-                    <option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre}"></option>
-                </select>
-            </div>
+           <div class="form-group">
+             <label for="avion">Avión:</label>
+             <select class="form-control" th:field="*{avion}">
+             <option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre + ' - Capacidad: ' + avion.nroFilas * avion.nroSillasFila}"></option>
+             </select>
+          </div>
+            
+              
             
             <div class="form-group">
 				<label for"estado">Estado</label>
