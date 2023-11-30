@@ -6,7 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,10 +18,10 @@ public class Vuelo {
 	@Id
 	private String nroVuelo;
 	
-	@OneToOne
+	@ManyToOne
 	private Ciudad ciudadOrigen;
 	
-	@OneToOne
+	@ManyToOne
 	private Ciudad ciudadDestino;
 	
 	private String tipoVuelo;
@@ -29,7 +30,7 @@ public class Vuelo {
 	@DateTimeFormat
 	private LocalDateTime fechaHora;
 	
-	@OneToOne
+	@ManyToOne
 	private Avion avion;
 	
 	private String estado; 
