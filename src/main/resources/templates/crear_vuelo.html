@@ -45,8 +45,8 @@
 
             <!-- Precio del Pasaje -->
            <div class="form-group">
-    <label for="precioBruto">Precio del Pasaje:</label>
-    <input type="number" class="form-control" id="precioBrutoInput" name="precioBrutoInput" placeholder="Ingrese el precio" step="any" pattern="\d+(\.\d{1,2})?" />
+    <label for="vuelo.precioBruto">Precio del Pasaje:</label>
+     <input type="number" step="0.01" min="0" id="precioBruto" name="precioBruto" th:field="${vuelo.precioBruto}" required/>
 </div>
 
             <!-- Fecha y Hora de Partida -->
