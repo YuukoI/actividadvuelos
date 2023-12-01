@@ -1,15 +1,12 @@
 package com.app.TP_DESI2023.Controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.app.TP_DESI2023.Entitys.Avion;
-import com.app.TP_DESI2023.Entitys.Ciudad;
+
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Services.AvionService;
 import com.app.TP_DESI2023.Services.CiudadService;
@@ -24,8 +21,8 @@ public class VueloController {
    
   @GetMapping("/vuelos")
   public String listaVuelos(Model model) {
-	  model.addAttribute("vuelos", vueloService.obtenerVuelos());
-	  return "vuelos";
+	  model.addAttribute("vuelos", vueloService.obtenerVuelosOrdenadosPorFechaHora());
+      return "vuelos";
   }
   
   @Autowired 
