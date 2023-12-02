@@ -21,24 +21,17 @@
 					<th>Origen</th>
 					<th>Destino</th>
 					<th>Tipo de vuelo</th>
-					<th>Precio</th>
 					<th>Fecha y Hora</th>
 					<th>Estado</th>
-					<th>Acciones</th>
 				</tr>			</thead>
 			<tbody>
 				<tr th:each="vuelo : ${vuelos}">
+					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.nroVuelo}">nro Vuelo</td>
+					<td th:text="${vuelo.tipoVuelo}">Tipo de vuelo</td>
 					<td th:text="${vuelo.ciudadOrigen.nombre}">Origen</td>
 					<td th:text="${vuelo.ciudadDestino.nombre}">Destino</td>
-					<td th:text="${vuelo.tipoVuelo}">Tipo de vuelo</td>
-					<td th:text="${vuelo.precioBruto}">Precio Bruto</td>
-					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.estado}">Estado</td>
-					<td>
-					<!--	<a th:href="@{vuelos/editar/{nroVuelo}(nroVuelo = ${vuelo.nroVuelo})}" class="btn btn-info">Editar</a>
-						<a th:href="@{/vuelos/{nroVuelo}{nroVuelo = ${vuelo.nroVuelo})}" class="btn btn-danger">Borrar</a> -->
-					</td>
 				</tr>
 			</tbody>
 		</table>
