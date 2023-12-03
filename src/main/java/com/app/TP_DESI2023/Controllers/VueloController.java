@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Exceptions.CustomException;
@@ -68,5 +68,28 @@ public class VueloController {
       vueloService.guardarVuelo(vuelo);
       return "redirect:/vuelos";
   }
+  
+	@GetMapping("vuelos/editar/{nroVuelo}")
+	public String editarVuelo(@PathVariable String nroVuelo, Model model) {
+		model.addAttribute("vuelo", vueloService.obtenerVueloPorNro(nroVuelo).get());
+	    model.addAttribute("ciudades", ciudadService.obtenerCiudades());
+	    model.addAttribute("aviones", avionService.obtenerAviones());
+		return "modificaciones_vuelos";
+	}
+
+	@PostMapping("/vuelos/{nroVuelo}")
+	public String actualizarVuelo(@PathVariable String nroVuelo, @ModelAttribute("vuelo") Vuelo vuelo, Model model) {
+		Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
+		vuelo.setNroVuelo(vueloOptional.get().getNroVuelo());
+		vueloService.editarVuelo(vuelo);
+
+		return "redirect:/vuelos";
+	}
+
+	@GetMapping("/vuelos/{nroVuelo}")
+	public String borrarAvion(@PathVariable String nroVuelo) {
+		vueloService.borrarVuelo(nroVuelo);
+		return "redirect:/vuelos";
+	}
   
 }
