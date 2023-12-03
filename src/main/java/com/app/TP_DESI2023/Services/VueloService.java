@@ -23,6 +23,8 @@ public interface VueloService {
 	List<Vuelo> obtenerVuelosPorOrigen(String origen);
 	
 	List<Vuelo> obtenerVuelosPorDestino(String destino);
+	
+	List<Vuelo> ordenarPorFechaMasCercana();
     
     }
 

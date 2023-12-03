@@ -80,4 +80,13 @@ public class VueloServiceImp implements VueloService {
 		return (List<Vuelo>) query.getResultList();
 	}
 
+	@Override
+	public List<Vuelo> ordenarPorFechaMasCercana() {
+		String jpql = "SELECT v FROM Vuelo v ORDER BY v.fechaHora ASC";
+		
+		TypedQuery<Vuelo> query = entityManager.createQuery(jpql, Vuelo.class);
+		
+		return query.getResultList();
+	}
+
 }
