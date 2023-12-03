@@ -23,14 +23,14 @@
             <div class="form-group">
                 <label for="ciudadOrigen">Origen:</label>
                 <select class="form-control" th:field="*{ciudadOrigen}" required>
-                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" required></option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="ciudadDestino">Destino:</label>
                 <select class="form-control" th:field="*{ciudadDestino}" required>
-                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+                    <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" required></option>
                 </select>
             </div>
 
@@ -59,18 +59,9 @@
            <div class="form-group">
              <label for="avion">Avión:</label>
              <select class="form-control" th:field="*{avion}" required>
-             <option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre + ' - Capacidad: ' + avion.nroFilas * avion.nroSillasFila}"></option>
+             <option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre + ' - Capacidad: ' + avion.nroFilas * avion.nroSillasFila}" required></option>
              </select>
           </div>
-            
-              
-            
-            <div class="form-group">
-				<label for"estado">Estado</label>
-				<input type="text" class"form-control" id="estado" name="estadoInput" placeholder="Normal" th:field="*{estado}"/>
-			</div>
-            
-            
 
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>

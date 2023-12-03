@@ -12,8 +12,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "vuelos")
-
-
 public class Vuelo {
 	@Id
 	private String nroVuelo;
@@ -35,7 +33,6 @@ public class Vuelo {
 	
 	private String estado; 
 
-	
 	public Vuelo() {
 		
 	}
@@ -134,6 +131,15 @@ public class Vuelo {
 		this.estado = estado;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Vuelo [nroVuelo=" + nroVuelo + ", ciudadOrigen=" + ciudadOrigen + ", ciudadDestino=" + ciudadDestino
+				+ ", tipoVuelo=" + tipoVuelo + ", precioBruto=" + precioBruto + ", fechaHora=" + fechaHora + ", avion="
+				+ avion + ", estado=" + estado + "]";
+	}
+
+	
 
 
 
