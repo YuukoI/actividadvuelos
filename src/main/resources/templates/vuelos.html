@@ -24,20 +24,20 @@
 		<table class="table table-striped table-bordered">
 			<thead class="table-dark">
 				<tr>
+					<th>Fecha y Hora</th>
 					<th>NroVuelo</th>
 					<th>Origen</th>
 					<th>Destino</th>
 					<th>Tipo de vuelo</th>
-					<th>Fecha y Hora</th>
 					<th>Estado</th>
 				</tr>			</thead>
 			<tbody>
 				<tr th:each="vuelo : ${vuelos}">
+					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.nroVuelo}">Numero de vuelo</td>
 					<td th:text="${vuelo.ciudadOrigen.nombre}">Origen</td>
 					<td th:text="${vuelo.ciudadDestino.nombre}">Destino</td>
 					<td th:text="${vuelo.tipoVuelo}">Tipo de vuelo</td>
-					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.estado}">Estado</td>
 				</tr>
 			</tbody>
