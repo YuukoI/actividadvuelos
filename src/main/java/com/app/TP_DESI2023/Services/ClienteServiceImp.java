@@ -49,7 +49,6 @@ public class ClienteServiceImp implements ClienteService {
 		try {
 			return (Cliente) query.getSingleResult();
 		} catch (Exception e) {
-
 			return null;
 		}
 	}

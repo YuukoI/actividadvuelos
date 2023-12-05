@@ -77,8 +77,13 @@ public class Avion {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public List<Asiento> getAsientos() {
+		return asientos;
+	}
+
+	public void setAsientos(List<Asiento> asientos) {
+		this.asientos = asientos;
+	}
 	
-	
-    
-    
 }

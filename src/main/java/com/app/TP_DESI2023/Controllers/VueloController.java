@@ -24,9 +24,16 @@ import org.springframework.ui.Model;
 
 @Controller
 public class VueloController {
+	
   @Autowired
   private VueloService vueloService;
-   
+  
+  @Autowired 
+  private CiudadService ciudadService;
+  
+  @Autowired
+  private AvionService avionService;
+  
   @GetMapping("/vuelos")
   public String listaVuelos(@RequestParam(name = "fecha", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFiltro, Model model) {
 	  List<Vuelo> vuelos;
@@ -40,12 +47,6 @@ public class VueloController {
 	  model.addAttribute("vuelos", vuelos);
       return "vuelos";
   }
-  
-  @Autowired 
-  private CiudadService ciudadService;
-  
-  @Autowired
-  private AvionService avionService;
   
   @GetMapping("/crear_vuelo")
   public String formularioCrearVuelo(Model model) {
