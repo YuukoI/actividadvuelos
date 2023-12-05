@@ -20,16 +20,19 @@
     <div>
         <h1>Detalles del vuelo</h1>
         <p>Numero del Vuelo: </p>
-        <p th:text="${vueloSeleccionado.get().nroVuelo}"></p>
+        <pth:text="${vueloSeleccionado.get().nroVuelo}"></p>
         <p>Ciudad Origen: </p>
         <p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
         <p>Ciudad Destino: </p>
         <p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
 
         <h2>Precio</h2>
-        
         <p th:text="${vueloSeleccionado.get().precioBruto}"></p>
-    </div>
+        
+        <p>Total Precio mas impuestos (IVA y Tasa Aereoportuaria)</p>
+        <p th:text="${vueloSeleccionado.get().precioBruto + Impuestos}"></p>
+        
+   
 </body>
 
 </html>

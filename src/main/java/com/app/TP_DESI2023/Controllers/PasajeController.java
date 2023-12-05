@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.TP_DESI2023.Entitys.Cliente;
+import com.app.TP_DESI2023.Entitys.Impuesto;
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Exceptions.CustomException;
 import com.app.TP_DESI2023.Services.AsientoService;
@@ -81,12 +82,14 @@ public class PasajeController {
         String nroVuelo = (String) session.getAttribute("nroVuelo");
         Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
         Cliente c = clienteService.obtenerClientePorDni(dni);
+        session.setAttribute("nroVuelo", nroVuelo);
         
         model.addAttribute("vueloSeleccionado", vueloOptional);
         model.addAttribute("dni", c.getDni());
 
         if (vueloOptional.isPresent()) {
             if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("NACIONAL")) {
+            	
                 return "redirect:/venta_pasaje_nacional";
             } else {
                 return "redirect:/venta_pasaje_internacional";
@@ -103,10 +106,18 @@ public class PasajeController {
 
     	Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
     	Cliente c = clienteService.obtenerClientePorDni(dni);
-
+    	 Optional<Impuesto> iva = impuestoService.obtenerImpuestoPorId((long) 0);
+         Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long)1);
     	model.addAttribute("vueloSeleccionado", vueloOptional);
     	model.addAttribute("Cliente", c);
-
+    	 
+    	
+    	   if(iva.isPresent() && tasa.isPresent()) {
+           	Impuesto ivaVuelo = iva.get();
+           	Impuesto tasaVuelo = tasa.get();
+           	model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() + tasaVuelo.getMonto()) * (ivaVuelo.getMonto() / 100));
+           }
+          
         return "venta_pasaje_nacional";
     }
     
@@ -117,15 +128,19 @@ public class PasajeController {
 
         Cliente c = clienteService.obtenerClientePorDni(dni);
         Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
+     
+        
+        
        
         if (vueloOptional.isPresent()) {
             Vuelo vuelo = vueloOptional.get();
             model.addAttribute("Cliente", c);
             model.addAttribute("Vuelo", vuelo);
+         
         }
-
         return "venta_pasaje_nacional";
-    }
+    
+}
 }
 
 
