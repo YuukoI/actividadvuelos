@@ -68,21 +68,22 @@ public class PasajeController {
          
         model.addAttribute("cliente", c);
         model.addAttribute("vuelos", vueloService.obtenerVuelos());
-
+    
+        
+        
         return "pasajes";
     }
     
     
     @PostMapping("/pasajes")
-    public String procesarPasajes(HttpSession session, Model model) {
-        
+      public String procesarPasajes(@RequestParam(name = "vuelo") String nroVuelo, HttpSession session, Model model) {
       
         Integer dni = (Integer) session.getAttribute("dni");
         
-        String nroVuelo = (String) session.getAttribute("nroVuelo");
         Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
-        Cliente c = clienteService.obtenerClientePorDni(dni);
         session.setAttribute("nroVuelo", nroVuelo);
+        Cliente c = clienteService.obtenerClientePorDni(dni);
+        
         
         model.addAttribute("vueloSeleccionado", vueloOptional);
         model.addAttribute("dni", c.getDni());
