@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.TP_DESI2023.Entitys.Asiento;
+import com.app.TP_DESI2023.Entitys.Avion;
 import com.app.TP_DESI2023.Entitys.Cliente;
 import com.app.TP_DESI2023.Entitys.Impuesto;
 import com.app.TP_DESI2023.Entitys.Vuelo;
@@ -111,8 +113,9 @@ public class PasajeController {
          Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long)1);
     	model.addAttribute("vueloSeleccionado", vueloOptional);
     	model.addAttribute("Cliente", c);
+        
+        
     	 
-    	
     	   if(iva.isPresent() && tasa.isPresent()) {
            	Impuesto ivaVuelo = iva.get();
            	Impuesto tasaVuelo = tasa.get();
@@ -129,7 +132,7 @@ public class PasajeController {
 
         Cliente c = clienteService.obtenerClientePorDni(dni);
         Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
-     
+      
         
         
        
@@ -137,7 +140,10 @@ public class PasajeController {
             Vuelo vuelo = vueloOptional.get();
             model.addAttribute("Cliente", c);
             model.addAttribute("Vuelo", vuelo);
-         
+
+        	List<Asiento> asientosLibres = asientoService.obtenerAsientosLibresPorAvion(vuelo.getAvion().getId());
+            model.addAttribute("asientos", asientosLibres);
+        	
         }
         return "venta_pasaje_nacional";
     

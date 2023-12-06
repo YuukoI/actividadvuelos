@@ -88,5 +88,7 @@ public class VueloServiceImp implements VueloService {
 		
 		return query.getResultList();
 	}
+	
+	
 
 }

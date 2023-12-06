@@ -17,22 +17,34 @@
 </head>
 
 <body>
-    <div>
-        <h1>Detalles del vuelo</h1>
-        <p>Numero del Vuelo: </p>
-        <pth:text="${vueloSeleccionado.get().nroVuelo}"></p>
-        <p>Ciudad Origen: </p>
-        <p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
-        <p>Ciudad Destino: </p>
-        <p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
+	<div>
+		<h1>Pasaje: </h1>
 
-        <h2>Precio</h2>
-        <p th:text="${vueloSeleccionado.get().precioBruto}"></p>
-        
-        <p>Total Precio mas impuestos (IVA y Tasa Aereoportuaria)</p>
-        <p th:text="${vueloSeleccionado.get().precioBruto + Impuestos}"></p>
-        
-   
+		<p>Numero del Vuelo: </p>
+		<p th:text="${vueloSeleccionado.get().nroVuelo}"></p>
+		<p>Ciudad Origen: </p>
+		<p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
+		<p>Ciudad Destino: </p>
+		<p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
+
+		<h2>Precio</h2>
+		<p th:text="${vueloSeleccionado.get().precioBruto}"></p>
+
+		<p>Total Precio mas impuestos (IVA y Tasa Aereoportuaria)</p>
+		<p th:text="${vueloSeleccionado.get().precioBruto + Impuestos}"></p>
+
+
+		<form action="/venta_pasaje_nacional" method="post">
+			<label for="asientosLibres">Listado de asientos:</label>
+			<select id="id" name="asiento">
+				<option th:each="asiento : ${asientosLibres}" th:value="${asiento}"
+					th:text="${'fila:' + asiento.fila + ' -  numero: ' + asiento.numero}"></option>
+			</select>
+			<button type="submit">Confirmar</button>
+		</form>
+
+	</div>
+
 </body>
 
 </html>
