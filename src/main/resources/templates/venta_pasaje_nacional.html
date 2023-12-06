@@ -35,10 +35,10 @@
 
 
 		<form action="/venta_pasaje_nacional" method="post">
-			<label for="asientosLibres">Listado de asientos:</label>
+			<label for="asiento">Listado de asientos:</label>
 			<select id="id" name="asiento">
-				<option th:each="asiento : ${asientosLibres}" th:value="${asiento}"
-					th:text="${'fila:' + asiento.fila + ' -  numero: ' + asiento.numero}"></option>
+				<option th:each="asiento : ${asientos}" th:value="${asiento}"
+					th:text="${'Fila:' + asiento.fila + ' -  Asiento: ' + asiento.numero}"></option>
 			</select>
 			<button type="submit">Confirmar</button>
 		</form>

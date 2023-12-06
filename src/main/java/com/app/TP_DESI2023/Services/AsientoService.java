@@ -9,4 +9,5 @@ public interface AsientoService {
 	int cantidadAsientosLibresPorVuelo(Long avionId);
 	
 	List<Asiento> obtenerAsientosLibresPorAvion(Long avionId);
+	
 }

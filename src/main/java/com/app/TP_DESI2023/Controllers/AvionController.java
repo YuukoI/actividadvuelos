@@ -1,13 +1,10 @@
 package com.app.TP_DESI2023.Controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.TP_DESI2023.Entitys.Avion;
@@ -18,6 +15,7 @@ public class AvionController {
 
 	@Autowired
 	private AvionService avionService;
+
 
 	/*
 	@GetMapping()
@@ -90,27 +88,6 @@ public class AvionController {
 		Avion avion = new Avion();
 		model.addAttribute(avion);
 		return "crear_avion";
-	}
-	
-	@GetMapping("aviones/editar/{id}")
-	public String editarAvion(@PathVariable Long id, Model model) {
-		model.addAttribute("avion", avionService.obtenerAvionPorId(id).get());
-		return "modificaciones_aviones";
-	}
-
-	@PostMapping("/aviones/{id}")
-	public String actualizarAvion(@PathVariable Long id, @ModelAttribute("avion") Avion avion, Model model) {
-		Optional<Avion> avionOptional = avionService.obtenerAvionPorId(id);
-		avion.setId(avionOptional.get().getId());
-		avionService.editarAvion(avion);
-
-		return "redirect:/aviones";
-	}
-
-	@GetMapping("/aviones/{id}")
-	public String borrarAvion(@PathVariable Long id) {
-		avionService.borrarAvion(id);
-		return "redirect:/aviones";
 	}
 	
 }

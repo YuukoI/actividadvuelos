@@ -109,8 +109,10 @@ public class PasajeController {
 
     	Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
     	Cliente c = clienteService.obtenerClientePorDni(dni);
-    	 Optional<Impuesto> iva = impuestoService.obtenerImpuestoPorId((long) 0);
-         Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long)1);
+    	 Optional<Impuesto> iva = impuestoService.obtenerImpuestoPorId((long)1);
+         Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long)2);
+         
+         model.addAttribute("asientos", asientoService.obtenerAsientosLibresPorAvion(vueloOptional.get().getAvion().getId()));
     	model.addAttribute("vueloSeleccionado", vueloOptional);
     	model.addAttribute("Cliente", c);
         
@@ -133,9 +135,6 @@ public class PasajeController {
         Cliente c = clienteService.obtenerClientePorDni(dni);
         Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
       
-        
-        
-       
         if (vueloOptional.isPresent()) {
             Vuelo vuelo = vueloOptional.get();
             model.addAttribute("Cliente", c);

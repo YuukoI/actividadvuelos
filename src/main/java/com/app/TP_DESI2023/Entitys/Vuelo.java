@@ -37,7 +37,6 @@ public class Vuelo {
 		
 	}
 
-
 	public Vuelo(String nroVuelo, Ciudad ciudadOrigen, Ciudad ciudadDestino, String tipoVuelo, double precioBruto,
 			LocalDateTime fechaHora, Avion avion, String estado) {
 		super();

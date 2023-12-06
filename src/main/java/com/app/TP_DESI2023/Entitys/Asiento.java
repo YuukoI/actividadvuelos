@@ -17,7 +17,10 @@ public class Asiento {
 
 	private int fila;
 	private int numero;
-	private boolean reservado;
+	private Boolean reservado;
+	
+	@ManyToOne
+	private Avion avion;
 
 	public Asiento() {
 		super();
@@ -30,9 +33,6 @@ public class Asiento {
 		this.reservado = reservado;
 		this.avion = avion;
 	}
-
-	@ManyToOne
-	private Avion avion;
 
 	public Long getId() {
 		return id;
