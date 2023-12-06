@@ -89,6 +89,7 @@ public class PasajeController {
         
         model.addAttribute("vueloSeleccionado", vueloOptional);
         model.addAttribute("dni", c.getDni());
+        model.addAttribute("cliente", c);
 
         if (vueloOptional.isPresent()) {
             if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("NACIONAL")) {
@@ -114,7 +115,7 @@ public class PasajeController {
          
          model.addAttribute("asientos", asientoService.obtenerAsientosLibresPorAvion(vueloOptional.get().getAvion().getId()));
     	model.addAttribute("vueloSeleccionado", vueloOptional);
-    	model.addAttribute("Cliente", c);
+    	model.addAttribute("cliente", c);
         
         
     	 
@@ -137,8 +138,8 @@ public class PasajeController {
       
         if (vueloOptional.isPresent()) {
             Vuelo vuelo = vueloOptional.get();
-            model.addAttribute("Cliente", c);
-            model.addAttribute("Vuelo", vuelo);
+            model.addAttribute("cliente", c);
+            model.addAttribute("vuelo", vuelo);
 
         	List<Asiento> asientosLibres = asientoService.obtenerAsientosLibresPorAvion(vuelo.getAvion().getId());
             model.addAttribute("asientos", asientosLibres);

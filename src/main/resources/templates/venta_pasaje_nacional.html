@@ -19,12 +19,20 @@
 <body>
 	<div>
 		<h1>Pasaje: </h1>
+		
+		<h2>Datos del cliente: </h2>
+		<h3>Nombre y Apellido: </h3>
+		<p th:text="${cliente.nombre +' '+ cliente.apellido}"></p>
+		<h3>Dni: </h3>
+		<p th:text="${cliente.dni}"></p>
+		<h3>Pasaporte: </h3>
+		<p th:text="${cliente.nroPasaporte}"></p>
 
-		<p>Numero del Vuelo: </p>
+		<h3>Numero del Vuelo: </h3>
 		<p th:text="${vueloSeleccionado.get().nroVuelo}"></p>
-		<p>Ciudad Origen: </p>
+		<h3>Ciudad Origen: </h3>
 		<p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
-		<p>Ciudad Destino: </p>
+		<h3>Ciudad Destino: </h3>
 		<p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
 
 		<h2>Precio</h2>
