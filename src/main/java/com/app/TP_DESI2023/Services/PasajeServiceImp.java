@@ -1,5 +1,7 @@
 package com.app.TP_DESI2023.Services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class PasajeServiceImp implements PasajeService{
 	@Override
 	public Pasaje crearPasaje(Pasaje pasaje) {
 		return pasajeRepository.save(pasaje);
+	}
+
+	@Override
+	public Optional<Pasaje> findById(Long id) {
+		return pasajeRepository.findById(id);
 	}
 	
 

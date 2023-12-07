@@ -2,11 +2,13 @@ package com.app.TP_DESI2023.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.TP_DESI2023.Entitys.Asiento;
+import com.app.TP_DESI2023.Repositorys.AsientoRepository;
 import com.app.TP_DESI2023.Repositorys.AvionRepository;
 
 import jakarta.persistence.EntityManager;
@@ -20,6 +22,9 @@ public class AsientoServiceImp implements AsientoService {
 
 	@Autowired
 	private AvionRepository avionRepository;
+	
+	@Autowired 
+	private AsientoRepository asientoRepository;
 
 	@Override
 	public int cantidadAsientosLibresPorVuelo(Long avionId) {
@@ -44,5 +49,16 @@ public class AsientoServiceImp implements AsientoService {
 		}
 		return asientosLibres;
 	}
+
+	@Override
+	public Optional<Asiento> findById(Long id) {
+		return asientoRepository.findById(id);
+	}
+
+	@Override
+	public Asiento actualizarAsiento(Asiento asiento) {
+		return asientoRepository.save(asiento);
+	}
+	
 
 }

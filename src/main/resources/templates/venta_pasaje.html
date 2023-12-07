@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Venta pasajes nacional</title>
+	<title>Venta pasajes</title>
 </head>
 
 <!DOCTYPE html>
@@ -16,10 +16,14 @@
 	<title>Venta pasajes nacional</title>
 </head>
 
+	
+
+
 <body>
+	
 	<div>
 		<h1>Pasaje: </h1>
-		
+
 		<h2>Datos del cliente: </h2>
 		<h3>Nombre y Apellido: </h3>
 		<p th:text="${cliente.nombre +' '+ cliente.apellido}"></p>
@@ -38,18 +42,19 @@
 		<h2>Precio</h2>
 		<p th:text="${vueloSeleccionado.get().precioBruto}"></p>
 
-		<p>Total Precio mas impuestos (IVA y Tasa Aereoportuaria)</p>
-		<p th:text="${vueloSeleccionado.get().precioBruto + Impuestos}"></p>
+		<p>Total Precio mas impuestos: </p>
+		<p th:text="${Impuestos}"></p>
 
 
-		<form action="/venta_pasaje_nacional" method="post">
+		<form action="/venta_pasaje" method="post">
 			<label for="asiento">Listado de asientos:</label>
 			<select id="id" name="asiento">
-				<option th:each="asiento : ${asientos}" th:value="${asiento}"
+				<option th:each="asiento : ${asientos}" th:value="${asiento.id}"
 					th:text="${'Fila:' + asiento.fila + ' -  Asiento: ' + asiento.numero}"></option>
 			</select>
-			<button type="submit">Confirmar</button>
+			<button type="submit">Emitir Ticket</button>
 		</form>
+		
 
 	</div>
 
