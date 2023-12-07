@@ -101,41 +101,40 @@ public class PasajeController {
 
 		Double iva = 0.0;
 		Double tasaAepNacional = 0.0;
-		Double tasaAepInternacional = 0.0; 
+		Double tasaAepInternacional = 0.0;
 		Double cotizacionDolar = 0.0;
-		
+
 		List<Impuesto> impuestos = impuestoService.obtenerImpuestos();
-		
-		for(Impuesto i: impuestos) {
-			if(i.getNombre().equalsIgnoreCase("IVA")) {
+
+		for (Impuesto i : impuestos) {
+			if (i.getNombre().equalsIgnoreCase("IVA")) {
 				iva = i.getMonto();
-			}
-			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
 				tasaAepNacional = i.getMonto();
-			}
-			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
 				tasaAepInternacional = i.getMonto();
-			}
-			else {
+			} else {
 				cotizacionDolar = i.getMonto();
 			}
 		}
-		
+
 		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
 
-				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() + (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
-			
-		} else {
-			
-				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
-			}
+			model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto()
+					+ (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
 
+		} else {
+
+			model.addAttribute("Impuestos",
+					(vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
+		}
 
 		return "/venta_pasaje";
 	}
 
 	@PostMapping("/venta_pasaje")
-	public String procesarVenta(@RequestParam(name = "asiento") Long id, HttpSession session, Model model) {
+	public String procesarVenta(@RequestParam(name = "asiento") Long id, HttpSession session, Model model)
+			throws CustomException {
 		Integer dni = (Integer) session.getAttribute("dni");
 		String nroVuelo = (String) session.getAttribute("nroVuelo");
 
@@ -156,71 +155,71 @@ public class PasajeController {
 		pasaje.setAsiento(asientoService.findById(id).get());
 		Asiento asientoSelect = asientoService.findById(id).get();
 		asientoSelect.setId(id);
-		asientoSelect.setReservado(true);
-		asientoService.actualizarAsiento(asientoSelect);
-		
-		
 
 		pasaje.setCliente(c);
-		
+
 		pasaje.setVuelo(vueloOptional.get());
 
 		Double iva = 0.0;
 		Double tasaAepNacional = 0.0;
-		Double tasaAepInternacional = 0.0; 
+		Double tasaAepInternacional = 0.0;
 		Double cotizacionDolar = 0.0;
-		
+
 		List<Impuesto> impuestos = impuestoService.obtenerImpuestos();
-		
-		for(Impuesto i: impuestos) {
-			if(i.getNombre().equalsIgnoreCase("IVA")) {
+
+		for (Impuesto i : impuestos) {
+			if (i.getNombre().equalsIgnoreCase("IVA")) {
 				iva = i.getMonto();
-			}
-			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
 				tasaAepNacional = i.getMonto();
-			}
-			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
 				tasaAepInternacional = i.getMonto();
-			}
-			else {
+			} else {
 				cotizacionDolar = i.getMonto();
 			}
 		}
-		
+
 		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
 
-				pasaje.setPrecio((vueloOptional.get().getPrecioBruto() + (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
-			
+			pasaje.setPrecio((vueloOptional.get().getPrecioBruto()
+					+ (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
+
 		} else {
-			
-				pasaje.setPrecio((vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
-			}
+
+			pasaje.setPrecio((vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
+		}
 		pasajeService.crearPasaje(pasaje);
-		
+
 		session.setAttribute("id", pasaje.getId());
-		
+
+		if (vueloService.obtenerVueloPorNro(nroVuelo).get().getTipoVuelo().equalsIgnoreCase("INTERNACIONAL")) {
+			if (c.getNroPasaporte() == null) {
+				throw new CustomException("No puede comprar un pasaje Internacional sin tener Pasaporte.");
+			}
+			
+			asientoSelect.setReservado(true);
+			asientoService.actualizarAsiento(asientoSelect);
+
+		}
 
 		return "redirect:/finalizar_venta";
 
 	}
-	
+
 	@GetMapping("/finalizar_venta")
-	public String finalizarVenta(HttpSession session, Model model) throws CustomException{
+	public String finalizarVenta(HttpSession session, Model model) throws CustomException {
 		Long id = (Long) session.getAttribute("id");
-		
-		
-		if(!pasajeService.findById(id).isPresent()) {
+
+		if (!pasajeService.findById(id).isPresent()) {
 			throw new CustomException("no se pudo vender el pasaje");
-		} 
-		
-		 String mensajeExito = "¡Pasaje emitido con éxito!";
-		 
-		 model.addAttribute("mensajeExito", mensajeExito);
-		 
-		 return "finalizar_venta";
-		
-		
+		}
+
+		String mensajeExito = "¡Pasaje emitido con éxito!";
+
+		model.addAttribute("mensajeExito", mensajeExito);
+
+		return "finalizar_venta";
+
 	}
-	
 
 }
