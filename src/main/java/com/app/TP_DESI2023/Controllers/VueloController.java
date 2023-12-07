@@ -39,12 +39,30 @@ public class VueloController {
 
   
   @GetMapping("/vuelos")
-  public String listaVuelos(@RequestParam(name = "fecha", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFiltro,
+  public String listaVuelos(Model model) { 
+	  List<Vuelo> vuelos;
+	  
+	  model.addAttribute("ciudades", ciudadService.obtenerCiudades());
+	        vuelos = vueloService.ordenarPorFechaMasCercana();
+	    
+	  
+	  for (Vuelo vuelo : vuelos) {
+	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getAvion().getId());
+	        vuelo.setAsientosDisponibles(cantAsientosDisponibles);
+	    }
+	  
+	  model.addAttribute("vuelos", vuelos);
+      return "vuelos";
+  }
+  
+  @PostMapping("/vuelos")
+  public String listaFiltrosVuelos(@RequestParam(name = "fecha", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFiltro,
 		    @RequestParam(name = "origen", required = false) Long origenId,
 		    @RequestParam(name = "destino", required = false) Long destinoId,
 		    @RequestParam(name = "tipoVuelo", required = false) String tipoVuelo,
 		    Model model) { 
-	  List<Vuelo> vuelos;
+	  
+  List<Vuelo> vuelos;
 	  
 	  model.addAttribute("ciudades", ciudadService.obtenerCiudades());
 	  
@@ -63,7 +81,9 @@ public class VueloController {
 	  
 	  model.addAttribute("vuelos", vuelos);
       return "vuelos";
+	  
   }
+  
   
   @GetMapping("/crear_vuelo")
   public String formularioCrearVuelo(Model model) {

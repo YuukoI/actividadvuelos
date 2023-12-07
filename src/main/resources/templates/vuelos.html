@@ -15,7 +15,7 @@
 			<h1>Lista de Vuelos</h1>
 		</div>
 		<br>
-		<form th:action="@{/vuelos}" method="get">
+		<form th:action="@{/vuelos}" method="post">
 			<label for="fecha">Selecciona una fecha:</label>
 			<input type="date" id="fecha" name="fecha">
 
@@ -57,6 +57,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				<form th:action="@{/vuelos}" method="get">
 				<tr th:each="vuelo : ${vuelos}">
 					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.nroVuelo}">Numero de vuelo</td>
