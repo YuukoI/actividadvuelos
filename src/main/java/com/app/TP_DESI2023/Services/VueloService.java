@@ -27,7 +27,7 @@ public interface VueloService {
 	
 	List<Vuelo> ordenarPorFechaMasCercana();
     
-
+	List<Vuelo> filtrarVuelos(LocalDate fecha, Long origenId, Long destinoId, String tipoVuelo);
     }
 
 

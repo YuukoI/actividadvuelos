@@ -1,20 +1,16 @@
 package com.app.TP_DESI2023.Controllers;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.TP_DESI2023.Entitys.Asiento;
-import com.app.TP_DESI2023.Entitys.Avion;
 import com.app.TP_DESI2023.Entitys.Cliente;
 import com.app.TP_DESI2023.Entitys.Impuesto;
 import com.app.TP_DESI2023.Entitys.Pasaje;
@@ -99,32 +95,41 @@ public class PasajeController {
 		Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
 		Cliente c = clienteService.obtenerClientePorDni(dni);
 
-		model.addAttribute("asientos",
-				asientoService.obtenerAsientosLibresPorAvion(vueloOptional.get().getAvion().getId()));
+		model.addAttribute("asientos", asientoService.obtenerAsientosLibresPorAvion(vueloOptional.get().getAvion().getId()));
 		model.addAttribute("vueloSeleccionado", vueloOptional);
 		model.addAttribute("cliente", c);
 
-		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
-			Optional<Impuesto> iva = impuestoService.obtenerImpuestoPorId((long) 1);
-			Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long) 2);
-			if (iva.isPresent() && tasa.isPresent()) {
-				Impuesto ivaVuelo = iva.get();
-				Impuesto tasaVuelo = tasa.get();
-				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto()
-						+ (vueloOptional.get().getPrecioBruto() + tasaVuelo.getMonto()) * (ivaVuelo.getMonto() / 100)));
+		Double iva = 0.0;
+		Double tasaAepNacional = 0.0;
+		Double tasaAepInternacional = 0.0; 
+		Double cotizacionDolar = 0.0;
+		
+		List<Impuesto> impuestos = impuestoService.obtenerImpuestos();
+		
+		for(Impuesto i: impuestos) {
+			if(i.getNombre().equalsIgnoreCase("IVA")) {
+				iva = i.getMonto();
 			}
-
-		} else {
-			Optional<Impuesto> cotizacion = impuestoService.obtenerImpuestoPorId((long) 1);
-			Optional<Impuesto> tasaInternacional = impuestoService.obtenerImpuestoPorId((long) 2);
-			if (cotizacion.isPresent() && tasaInternacional.isPresent()) {
-				Impuesto cotizacionVuelo = cotizacion.get();
-				Impuesto tasaInternacionalVuelo = tasaInternacional.get();
-				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() * cotizacionVuelo.getMonto())
-						+ tasaInternacionalVuelo.getMonto());
+			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+				tasaAepNacional = i.getMonto();
 			}
-
+			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+				tasaAepInternacional = i.getMonto();
+			}
+			else {
+				cotizacionDolar = i.getMonto();
+			}
 		}
+		
+		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
+
+				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() + (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
+			
+		} else {
+			
+				model.addAttribute("Impuestos", (vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
+			}
+
 
 		return "/venta_pasaje";
 	}
@@ -160,27 +165,36 @@ public class PasajeController {
 		
 		pasaje.setVuelo(vueloOptional.get());
 
-		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
-			Optional<Impuesto> iva = impuestoService.obtenerImpuestoPorId((long) 1);
-			Optional<Impuesto> tasa = impuestoService.obtenerImpuestoPorId((long) 2);
-			if (iva.isPresent() && tasa.isPresent()) {
-				Impuesto ivaVuelo = iva.get();
-				Impuesto tasaVuelo = tasa.get();
-				pasaje.setPrecio((vueloOptional.get().getPrecioBruto()
-						+ (vueloOptional.get().getPrecioBruto() + tasaVuelo.getMonto()) * (ivaVuelo.getMonto() / 100)));
+		Double iva = 0.0;
+		Double tasaAepNacional = 0.0;
+		Double tasaAepInternacional = 0.0; 
+		Double cotizacionDolar = 0.0;
+		
+		List<Impuesto> impuestos = impuestoService.obtenerImpuestos();
+		
+		for(Impuesto i: impuestos) {
+			if(i.getNombre().equalsIgnoreCase("IVA")) {
+				iva = i.getMonto();
 			}
-
-		} else {
-			Optional<Impuesto> cotizacion = impuestoService.obtenerImpuestoPorId((long) 1);
-			Optional<Impuesto> tasaInternacional = impuestoService.obtenerImpuestoPorId((long) 2);
-			if (cotizacion.isPresent() && tasaInternacional.isPresent()) {
-				Impuesto cotizacionVuelo = cotizacion.get();
-				Impuesto tasaInternacionalVuelo = tasaInternacional.get();
-				pasaje.setPrecio((vueloOptional.get().getPrecioBruto() * cotizacionVuelo.getMonto())
-						+ tasaInternacionalVuelo.getMonto());
+			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+				tasaAepNacional = i.getMonto();
 			}
-
+			else if(i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+				tasaAepInternacional = i.getMonto();
+			}
+			else {
+				cotizacionDolar = i.getMonto();
+			}
 		}
+		
+		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
+
+				pasaje.setPrecio((vueloOptional.get().getPrecioBruto() + (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
+			
+		} else {
+			
+				pasaje.setPrecio((vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
+			}
 		pasajeService.crearPasaje(pasaje);
 		
 		session.setAttribute("id", pasaje.getId());

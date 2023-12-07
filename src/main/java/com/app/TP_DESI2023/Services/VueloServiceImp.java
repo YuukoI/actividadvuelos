@@ -1,8 +1,10 @@
 package com.app.TP_DESI2023.Services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,37 @@ public class VueloServiceImp implements VueloService {
 		TypedQuery<Vuelo> query = entityManager.createQuery(jpql, Vuelo.class);
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Vuelo> filtrarVuelos(LocalDate fecha, Long origenId, Long destinoId, String tipoVuelo) {
+	    List<Vuelo> vuelos = new ArrayList<>();
+
+	    if (fecha != null) {
+	        vuelos = obtenerVuelosPorFecha(fecha);
+	    } else {
+	        vuelos = ordenarPorFechaMasCercana();
+	    }
+
+	    if (origenId != null) {
+	        vuelos = vuelos.stream()
+	            .filter(vuelo -> vuelo.getCiudadOrigen().getId().equals(origenId))
+	            .collect(Collectors.toList());
+	    }
+
+	    if (destinoId != null) {
+	        vuelos = vuelos.stream()
+	            .filter(vuelo -> vuelo.getCiudadDestino().getId().equals(destinoId))
+	            .collect(Collectors.toList());
+	    }
+
+	    if (tipoVuelo != null && !tipoVuelo.isEmpty()) {
+	        vuelos = vuelos.stream()
+	            .filter(vuelo -> vuelo.getTipoVuelo().equalsIgnoreCase(tipoVuelo))
+	            .collect(Collectors.toList());
+	    }
+
+	    return vuelos;
 	}
 	
 	

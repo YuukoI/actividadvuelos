@@ -30,7 +30,7 @@ public class AsientoServiceImp implements AsientoService {
 	public int cantidadAsientosLibresPorVuelo(Long avionId) {
 		List<Asiento> asientos = avionRepository.findById(avionId).get().getAsientos();
 		int cont = 0;
-		for (int i = 0; i < avionRepository.findById(avionId).get().getAsientos().size(); i++) {
+		for (int i = 0; i < asientos.size(); i++) {
 			if (asientos.get(i).isReservado() == false) {
 				cont += 1;
 			}

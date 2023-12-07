@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Exceptions.CustomException;
+import com.app.TP_DESI2023.Services.AsientoService;
 import com.app.TP_DESI2023.Services.AvionService;
 import com.app.TP_DESI2023.Services.CiudadService;
 import com.app.TP_DESI2023.Services.VueloService;
@@ -33,17 +34,32 @@ public class VueloController {
   
   @Autowired
   private AvionService avionService;
+  
+  @Autowired AsientoService asientoService;
 
   
   @GetMapping("/vuelos")
-  public String listaVuelos(@RequestParam(name = "fecha", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFiltro, Model model) {
+  public String listaVuelos(@RequestParam(name = "fecha", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFiltro,
+		    @RequestParam(name = "origen", required = false) Long origenId,
+		    @RequestParam(name = "destino", required = false) Long destinoId,
+		    @RequestParam(name = "tipoVuelo", required = false) String tipoVuelo,
+		    Model model) { 
 	  List<Vuelo> vuelos;
 	  
-	  if(fechaFiltro != null) {
-		  vuelos = vueloService.obtenerVuelosPorFecha(fechaFiltro);
-	  } else {
-		  vuelos = vueloService.ordenarPorFechaMasCercana();
-	  }
+	  model.addAttribute("ciudades", ciudadService.obtenerCiudades());
+	  
+	  
+	    if (fechaFiltro != null || origenId != null || destinoId != null || tipoVuelo != null) {
+	        vuelos = vueloService.filtrarVuelos(fechaFiltro, origenId, destinoId, tipoVuelo);
+	    } else {
+	        vuelos = vueloService.ordenarPorFechaMasCercana();
+	    }
+
+	  
+	  for (Vuelo vuelo : vuelos) {
+	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getAvion().getId());
+	        vuelo.setAsientosDisponibles(cantAsientosDisponibles);
+	    }
 	  
 	  model.addAttribute("vuelos", vuelos);
       return "vuelos";

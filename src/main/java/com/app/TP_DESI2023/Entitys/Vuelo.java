@@ -32,6 +32,8 @@ public class Vuelo {
 	private Avion avion;
 	
 	private String estado; 
+	
+	private int asientosDisponibles;
 
 	public Vuelo() {
 		
@@ -138,16 +140,12 @@ public class Vuelo {
 				+ avion + ", estado=" + estado + "]";
 	}
 
-	
+	public int getAsientosDisponibles() {
+		return asientosDisponibles;
+	}
 
-
-
-	
-	
-	
-	
-	
-	
-	
+	public void setAsientosDisponibles(int asientosDisponibles) {
+		this.asientosDisponibles = asientosDisponibles;
+	}
 	
 }
