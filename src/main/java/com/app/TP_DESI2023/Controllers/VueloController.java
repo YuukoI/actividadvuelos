@@ -2,6 +2,7 @@ package com.app.TP_DESI2023.Controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.app.TP_DESI2023.Entitys.Asiento;
 import com.app.TP_DESI2023.Entitys.Vuelo;
 import com.app.TP_DESI2023.Exceptions.CustomException;
 import com.app.TP_DESI2023.Services.AsientoService;
@@ -47,7 +49,7 @@ public class VueloController {
 	    
 	  
 	  for (Vuelo vuelo : vuelos) {
-	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getAvion().getId());
+	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getNroVuelo());
 	        vuelo.setAsientosDisponibles(cantAsientosDisponibles);
 	    }
 	  
@@ -75,7 +77,7 @@ public class VueloController {
 
 	  
 	  for (Vuelo vuelo : vuelos) {
-	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getAvion().getId());
+	        int cantAsientosDisponibles = asientoService.cantidadAsientosLibresPorVuelo(vuelo.getNroVuelo());
 	        vuelo.setAsientosDisponibles(cantAsientosDisponibles);
 	    }
 	  
@@ -94,7 +96,7 @@ public class VueloController {
   }
 
   @PostMapping("/crear_vuelo")
-  public String crearVuelo(@ModelAttribute("vuelo") Vuelo vuelo) throws CustomException {
+  public String crearVuelo(@ModelAttribute("vuelo") Vuelo vuelo, Model model) throws CustomException {
 	  Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(vuelo.getNroVuelo());
 
       LocalDateTime localDateTime = vuelo.getFechaHora();
@@ -112,8 +114,21 @@ public class VueloController {
 			  }
 		  }
 	  }
+	  
 	  vuelo.setEstado("NORMAL");
+	  vuelo.setAsientosDisponibles(vuelo.getAvion().getCantidadSillas());
+	  
+	  List<Asiento> asientos = new ArrayList<>();
+	  for(int i = 0; i < vuelo.getAvion().getNroFilas(); i++) {
+		  for(int j = 0; j < vuelo.getAvion().getNroSillasFila(); j++) {
+			  asientos.add(new Asiento(i,j, false, vuelo.getAvion(), vuelo));
+		  }
+	  }
+	  
       vueloService.guardarVuelo(vuelo);
+      
+	  asientoService.crearAsientos(asientos);
+	  
       return "redirect:/vuelos";
   }
   

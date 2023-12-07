@@ -1,14 +1,9 @@
 package com.app.TP_DESI2023.Entitys;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,9 +17,7 @@ public class Avion {
 	private String nombre;
 	private int nroFilas;
 	private int nroSillasFila;
-	
-	@OneToMany(mappedBy = "avion", cascade = CascadeType.ALL)
-	private List<Asiento> asientos;
+	private int cantidadSillas;
 	
     public Avion() {
     }
@@ -33,17 +26,7 @@ public class Avion {
     	this.nombre = nombre;
         this.nroFilas = nroFilas;
         this.nroSillasFila = nroSillasFila;
-        this.asientos = generarAsientos();
-    }
-    
-    private List<Asiento> generarAsientos() {
-        List<Asiento> nuevosAsientos = new ArrayList<>();
-        for (int fila = 1; fila <= nroFilas; fila++) {
-            for (int numeroSilla = 1; numeroSilla <= nroSillasFila; numeroSilla++) {
-                nuevosAsientos.add(new Asiento(fila, numeroSilla, false, this));
-            }
-        }
-        return nuevosAsientos;
+        this.cantidadSillas = nroFilas * nroSillasFila;
     }
 
 	public Long getId() {
@@ -78,12 +61,14 @@ public class Avion {
 		this.nombre = nombre;
 	}
 
-	public List<Asiento> getAsientos() {
-		return asientos;
+	public int getCantidadSillas() {
+		return cantidadSillas;
 	}
 
-	public void setAsientos(List<Asiento> asientos) {
-		this.asientos = asientos;
+	public void setCantidadSillas(int cantidadSillas) {
+		this.cantidadSillas = cantidadSillas;
 	}
+
+
 	
 }

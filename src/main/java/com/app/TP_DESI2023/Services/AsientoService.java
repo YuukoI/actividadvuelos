@@ -6,10 +6,13 @@ import java.util.Optional;
 import com.app.TP_DESI2023.Entitys.Asiento;
 
 public interface AsientoService {
-
-	int cantidadAsientosLibresPorVuelo(Long avionId);
 	
-	List<Asiento> obtenerAsientosLibresPorAvion(Long avionId);
+	List<Asiento> crearAsientos(List<Asiento> asientos);
+
+	int cantidadAsientosLibresPorVuelo(String nroVuelo);
+	
+	List<Asiento> obtenerAsientosLibresPorVuelo(String nroVuelo);
+	
 	Optional <Asiento> findById(Long id);
 	
 	Asiento actualizarAsiento(Asiento asiento);

@@ -23,6 +23,7 @@ public class Vuelo {
 	private Ciudad ciudadDestino;
 	
 	private String tipoVuelo;
+	
 	private double precioBruto; 
 	
 	@DateTimeFormat
@@ -40,7 +41,7 @@ public class Vuelo {
 	}
 
 	public Vuelo(String nroVuelo, Ciudad ciudadOrigen, Ciudad ciudadDestino, String tipoVuelo, double precioBruto,
-			LocalDateTime fechaHora, Avion avion, String estado) {
+			LocalDateTime fechaHora, Avion avion, String estado, int asientosDisponibles) {
 		super();
 		this.nroVuelo = nroVuelo;
 		this.ciudadOrigen = ciudadOrigen;
@@ -50,8 +51,8 @@ public class Vuelo {
 		this.fechaHora = fechaHora;
 		this.avion = avion;
 		this.estado = estado;
+		this.asientosDisponibles = asientosDisponibles;
 	}
-
 
 	public String getNroVuelo() {
 		return nroVuelo;

@@ -21,17 +21,21 @@ public class Asiento {
 	
 	@ManyToOne
 	private Avion avion;
+	
+	@ManyToOne
+	private Vuelo vuelo;
 
 	public Asiento() {
 		super();
 	}
 
-	public Asiento(int fila, int numero, boolean reservado, Avion avion) {
+	public Asiento(int fila, int numero, Boolean reservado, Avion avion, Vuelo vuelo) {
 		super();
 		this.fila = fila;
 		this.numero = numero;
 		this.reservado = reservado;
 		this.avion = avion;
+		this.vuelo = vuelo;
 	}
 
 	public Long getId() {
@@ -74,4 +78,22 @@ public class Asiento {
 		this.avion = avion;
 	}
 
+	public Boolean getReservado() {
+		return reservado;
+	}
+
+	public void setReservado(Boolean reservado) {
+		this.reservado = reservado;
+	}
+
+	public Vuelo getVuelo() {
+		return vuelo;
+	}
+
+	public void setVuelo(Vuelo vuelo) {
+		this.vuelo = vuelo;
+	}
+
+	
+	
 }

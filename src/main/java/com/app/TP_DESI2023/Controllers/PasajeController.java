@@ -95,7 +95,7 @@ public class PasajeController {
 		Optional<Vuelo> vueloOptional = vueloService.obtenerVueloPorNro(nroVuelo);
 		Cliente c = clienteService.obtenerClientePorDni(dni);
 
-		model.addAttribute("asientos", asientoService.obtenerAsientosLibresPorAvion(vueloOptional.get().getAvion().getId()));
+		model.addAttribute("asientos", asientoService.obtenerAsientosLibresPorVuelo(vueloOptional.get().getNroVuelo()));
 		model.addAttribute("vueloSeleccionado", vueloOptional);
 		model.addAttribute("cliente", c);
 
@@ -147,7 +147,7 @@ public class PasajeController {
 			model.addAttribute("cliente", c);
 			model.addAttribute("vuelo", vuelo);
 
-			List<Asiento> asientosLibres = asientoService.obtenerAsientosLibresPorAvion(vuelo.getAvion().getId());
+			List<Asiento> asientosLibres = asientoService.obtenerAsientosLibresPorVuelo(vuelo.getNroVuelo());
 			model.addAttribute("asientos", asientosLibres);
 
 		}

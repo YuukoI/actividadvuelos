@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import com.app.TP_DESI2023.Entitys.Asiento;
 import com.app.TP_DESI2023.Entitys.Vuelo;
 
 public interface VueloService {
+	
 	Vuelo guardarVuelo(Vuelo vuelo);
 	
 	Vuelo editarVuelo(Vuelo vuelo);
