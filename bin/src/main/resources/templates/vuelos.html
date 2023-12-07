@@ -15,30 +15,57 @@
 			<h1>Lista de Vuelos</h1>
 		</div>
 		<br>
-		    <form th:action="@{/vuelos}" method="get">
-            <label for="fecha">Selecciona una fecha:</label>
-            <input type="date" id="fecha" name="fecha">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-        </form>
-        <br>
+		<form th:action="@{/vuelos}" method="post">
+			<label for="fecha">Selecciona una fecha:</label>
+			<input type="date" id="fecha" name="fecha">
+
+			<label for="origen">Selecciona un origen:</label>
+			<select id="origen" name="origen">
+				<option value="">Todos los orígenes</option>
+
+				<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+			</select>
+
+			<label for="destino">Selecciona un destino:</label>
+			<select id="destino" name="destino">
+				<option value="">Todos los destinos</option>
+
+				<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}"></option>
+			</select>
+
+			<label for="tipoVuelo">Tipo de vuelo:</label>
+			<select id="tipoVuelo" name="tipoVuelo">
+				<option value="">Todos</option>
+				<option value="Nacional">Nacional</option>
+				<option value="Internacional">Internacional</option>
+			</select>
+
+			<button type="submit" class="btn btn-primary">Filtrar</button>
+		</form>
+
+		<br>
 		<table class="table table-striped table-bordered">
 			<thead class="table-dark">
 				<tr>
+					<th>Fecha y Hora</th>
 					<th>NroVuelo</th>
 					<th>Origen</th>
 					<th>Destino</th>
 					<th>Tipo de vuelo</th>
-					<th>Fecha y Hora</th>
 					<th>Estado</th>
-				</tr>			</thead>
+					<th>Asientos Disponibles</th>
+				</tr>
+			</thead>
 			<tbody>
+				<form th:action="@{/vuelos}" method="get">
 				<tr th:each="vuelo : ${vuelos}">
+					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.nroVuelo}">Numero de vuelo</td>
 					<td th:text="${vuelo.ciudadOrigen.nombre}">Origen</td>
 					<td th:text="${vuelo.ciudadDestino.nombre}">Destino</td>
 					<td th:text="${vuelo.tipoVuelo}">Tipo de vuelo</td>
-					<td th:text="${vuelo.fechaHora}">Fecha y Hora</td>
 					<td th:text="${vuelo.estado}">Estado</td>
+					<td th:text="${vuelo.asientosDisponibles}">Asientos Disponibles</td>
 				</tr>
 			</tbody>
 		</table>
