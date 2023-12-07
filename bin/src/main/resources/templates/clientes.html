@@ -35,12 +35,10 @@
 					<td th:text="${cliente.domicilio}">Domicilio</td>
 					<td th:text="${cliente.email}">E-Mail</td>
 					<td th:text="${#dates.format(cliente.fechaNacimiento, 'yyyy-MM-dd')}">Fecha de Nacimiento</td>
-					<!--<td th:text="${cliente.fechaNacimiento}">Fecha de Nacimiento</td>-->
 					<td th:text="${cliente.nroPasaporte}">Pasaporte</td>
 					
 					<td >
 						<a th:href="@{clientes/editar/{dni}(dni = ${cliente.dni})}" class="btn btn-info">Editar</a>
-						<a th:href="@{/clientes/{id}(id = ${cliente.id})}" class="btn btn-danger">Borrar</a>
 					</td>
 				</tr>
 			</tbody>

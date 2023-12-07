@@ -28,7 +28,6 @@
 					<td th:text="${ciudad.nombre}">Nombre</td>
 					<td>
 						<a th:href="@{ciudades/editar/{id}(id = ${ciudad.id})}" class="btn btn-info">Editar</a>
-						<a th:href="@{/ciudades/{id}(id = ${ciudad.id})}" class="btn btn-danger">Borrar</a>
 					</td>
 				</tr>
 			</tbody>

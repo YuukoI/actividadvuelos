@@ -29,7 +29,7 @@ public class ImpuestoController {
 	public String editarImpuesto(@PathVariable Long id, Model model) {
 		if(impuestoService.obtenerImpuestoPorId(id).get().getNombre().equalsIgnoreCase("IVA")) {
 			model.addAttribute("impuesto", impuestoService.obtenerImpuestoPorId(id).get());
-			return "modificaciones_iva";
+			return "modificaciones_impuestos";
 		}
 		model.addAttribute("impuesto", impuestoService.obtenerImpuestoPorId(id).get());
 		return "modificaciones_impuestos";
