@@ -119,8 +119,8 @@ public class VueloController {
 	  vuelo.setAsientosDisponibles(vuelo.getAvion().getCantidadSillas());
 	  
 	  List<Asiento> asientos = new ArrayList<>();
-	  for(int i = 0; i < vuelo.getAvion().getNroFilas(); i++) {
-		  for(int j = 0; j < vuelo.getAvion().getNroSillasFila(); j++) {
+	  for(int i = 1; i <= vuelo.getAvion().getNroFilas(); i++) {
+		  for(int j = 1; j <= vuelo.getAvion().getNroSillasFila(); j++) {
 			  asientos.add(new Asiento(i,j, false, vuelo.getAvion(), vuelo));
 		  }
 	  }
