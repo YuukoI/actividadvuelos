@@ -10,49 +10,187 @@
 
 <body>
 
-	<div class="container">
-		<div>
-			<h1>Pasaje.</h1>
+	<header>
+		<div class="enlace-div">
+			<a href="/impuestos">IMPUESTOS</a>
 		</div>
-		<br>
-        </form>
-        <br>
-		<table class="table table-striped table-bordered">
-			<h3>Bienvenido, a continuacion le dejamos los datos del cliente.</h3>
-			<thead class="table-dark">
-				<tr>
-					<th>Nombre</th>
-					<th>Apellido</th>
-					<th>Domicilio</th>
-					<th>E-Mail</th>
-					<th>Fecha Nacimiento</th>
-					<th>Pasaporte</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="c : ${cliente}">
-					<td th:text="${c.nombre}">Nombre</td>
-					<td th:text="${c.apellido}">Apellido</td>
-					<td th:text="${c.domicilio}">Domicilio</td>
-					<td th:text="${c.email}">E-Mail</td>
-					<td th:text="${c.fechaNacimiento}">Fecha Nacimiento</td>
-					<td th:text="${c.nroPasaporte}">Pasaporte</td>
-				</tr>
+		<div class="enlace-div">
+			<a href="/clientes">CLIENTES</a>
+		</div>
+		<div class="enlace-div">
+			<a class="pasaje" href="/pasajes">VENTA DE PASAJES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/ciudades">CIUDADES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/vuelos">VUELOS</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/aviones">AVIONES</a>
+		</div>
+	</header>
+
+	<div class="contenerdor-centrado">
+		<div class="contenedor-datos-cliente">
+			<h2 class="txt-tabla item-tabla">INFORMACIÓN DEL CLIENTE</h2>
+			<table class="item-tabla table table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Domicilio</th>
+						<th>E-Mail</th>
+						<th>Fecha Nacimiento</th>
+						<th>Pasaporte</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${cliente}">
+						<td th:text="${c.nombre}">Nombre</td>
+						<td th:text="${c.apellido}">Apellido</td>
+						<td th:text="${c.domicilio}">Domicilio</td>
+						<td th:text="${c.email}">E-Mail</td>
+						<td th:text="${c.fechaNacimiento}">Fecha Nacimiento</td>
+						<td th:text="${c.nroPasaporte}">Pasaporte</td>
+					</tr>
+
+			</table>
+			<form class="item-tabla" action="/pasajes" method="post">
+				<label class="txt-tabla item-vuelo" for="vuelo">LISTADO DE VUELOS:</label>
+				<select class="item-vuelo seleccionar-vuelo" id="vuelo" name="vuelo">
+					<option th:each="vuelo : ${vuelos}" th:value="${vuelo.nroVuelo}"
+						th:text="${vuelo.nroVuelo + ' - ' + vuelo.ciudadOrigen.nombre + ' - ' + vuelo.ciudadDestino.nombre + ' - ' + vuelo.fechaHora}">
+					</option>
+				</select>
+
+				<button class="boton-confirmar item-vuelo" type="submit">CONFIRMAR</button>
+			</form>
+
 			</tbody>
-		</table>
-		<br>
-		<br>
-		<br>
-		<form action="/pasajes" method="post">
-
-    		<label for="vuelo">Listado de vuelos:</label>
-    		<select id="vuelo" name="vuelo">
-        	<option th:each="vuelo : ${vuelos}" th:value="${vuelo.nroVuelo}" th:text="${vuelo.nroVuelo + ' - ' + vuelo.ciudadOrigen.nombre + ' - ' + vuelo.ciudadDestino.nombre + ' - ' + vuelo.fechaHora}"></option>
-    		</select>
-
-    		<button type="submit">Confirmar</button>
-		</form>
+		</div>
 	</div>
+	<style>
+		/* Estilos CSS para la cabecera */
+		body {
+			margin: 0;
+			padding: 0;
+			background-image: url('/images/background-image.jpg');
+			/* Ruta a tu imagen de fondo */
+			background-size: cover;
+			background-position: center;
+			height: 100vh;
+			/* 100% de la altura de la ventana */
+		}
+
+		header {
+			display: flex;
+			justify-content: space-between;
+			box-shadow: 0px 4px 6px rgb(0, 128, 192);
+			/* Sombras */
+			padding: 20px;
+		}
+
+
+		.enlace-div {
+			flex: 1;
+			text-align: center;
+		}
+
+		.enlace-div a:hover {
+			color: #103763;
+			/* Cambia el color al pasar el cursor */
+		}
+
+		.enlace-div a.pasaje {
+			color: #103763;
+			/* Establece el color azul */
+
+		}
+
+		.enlace-div a {
+			text-decoration: none;
+			color: rgb(255, 255, 255);
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		.contenerdor-centrado {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 45vh;
+		}
+
+		.contenedor-datos-cliente {
+			background-color: rgba(16, 55, 99, 0.4);
+			/* Cambiado a #103763 con 50% de transparencia */
+			padding: 20px;
+			border-radius: 1px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			max-width: 70%;
+			width: 95%;
+			text-align: left;
+			margin: 20px;
+		}
+
+		.item-tabla {
+			margin: 20px 0px;
+		}
+
+		.txt-tabla {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+			color: white;
+		}
+
+		th,
+		td {
+			border: 0px;
+		}
+
+		.item-vuelo {
+			margin: 0px 10px;
+		}
+
+		.seleccionar-vuelo {
+			padding: 2px;
+	
+			border: none;
+		
+			outline: none;
+		
+			background-color: #f0f0f0;
+			
+			cursor: pointer;
+		
+		}
+
+		.boton-confirmar {
+			border: 0px solid black;
+			/* Bordes cuadrados */
+			border-radius: 2px;
+			/* Bordes cuadrados, sin redondeo */
+			font-size: 14px;
+			background-color: white;
+			padding: 5px 10px;
+			color: #103763;
+			cursor: pointer;
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+			font-weight: bold;
+			transition: background-color 0.3s, color 0.3s;
+			/* Transición de colores al pasar el cursor */
+		}
+
+		.boton-confirmar:hover {
+			background-color: #103763;
+			color: white;
+
+		}
+	</style>
+
 </body>
 
 </html>
