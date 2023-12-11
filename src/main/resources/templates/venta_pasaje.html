@@ -15,17 +15,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Venta pasajes nacional</title>
 </head>
-<body>
+
+<div>
 
 	<header>
 		<div class="enlace-div">
 			<a href="/impuestos">IMPUESTOS</a>
 		</div>
 		<div class="enlace-div">
-			<a class="cliente" href="/clientes">CLIENTES</a>
+			<a href="/clientes">CLIENTES</a>
 		</div>
 		<div class="enlace-div">
-			<a href="/validacion_cliente">VENTA DE PASAJES</a>
+			<a class="venta-pasaje" href="/venta_pasaje">VENTA DE PASAJES</a>
 		</div>
 		<div class="enlace-div">
 			<a href="/ciudades">CIUDADES</a>
@@ -37,69 +38,91 @@
 			<a href="/aviones">AVIONES</a>
 		</div>
 	</header>
-	
 
 
-<body>
-	
-	<div>
-		<h1>Pasaje: </h1>
-
-		<h2>Datos del cliente: </h2>
-		<h3>Nombre y Apellido: </h3>
-		<p th:text="${cliente.nombre +' '+ cliente.apellido}"></p>
-		<h3>Dni: </h3>
-		<p th:text="${cliente.dni}"></p>
-		<h3>Pasaporte: </h3>
-		<p th:text="${cliente.nroPasaporte}"></p>
-
-		<h3>Numero del Vuelo: </h3>
-		<p th:text="${vueloSeleccionado.get().nroVuelo}"></p>
-		<h3>Ciudad Origen: </h3>
-		<p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
-		<h3>Ciudad Destino: </h3>
-		<p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
-
-		<h2>Precio</h2>
-		<p th:text="${vueloSeleccionado.get().precioBruto}"></p>
-
-		<p>Total Precio mas impuestos: </p>
-		<p th:text="${Impuestos}"></p>
 
 
-		<form action="/venta_pasaje" method="post">
-			<label for="asiento">Listado de asientos:</label>
-			<select id="id" name="asiento">
-				<option th:each="asiento : ${asientos}" th:value="${asiento.id}"
-					th:text="${'Fila:' + asiento.fila + ' -  Asiento: ' + asiento.numero}"></option>
-			</select>
-			<button type="submit">Emitir Ticket</button>
+
+	<div class="ticket-contenedor">
+		<h1>PASAJE</h1>
+
+		<div>
+			<h3>Nombre y Apellido:</h3>
+			<p th:text="${cliente.nombre +' '+ cliente.apellido}"></p>
+		</div>
+
+		<div>
+			<h3>Dni:</h3>
+			<p th:text="${cliente.dni}"></p>
+		</div>
+
+		<div>
+			<h3>Pasaporte:</h3>
+			<p th:text="${cliente.nroPasaporte}"></p>
+		</div>
+
+		<div>
+			<h3>Numero del Vuelo:</h3>
+			<p th:text="${vueloSeleccionado.get().nroVuelo}"></p>
+		</div>
+
+		<div>
+			<h3>Ciudad Origen:</h3>
+			<p th:text="${vueloSeleccionado.get().ciudadOrigen.nombre}"></p>
+		</div>
+
+		<div>
+			<h3>Ciudad Destino:</h3>
+			<p th:text="${vueloSeleccionado.get().ciudadDestino.nombre}"></p>
+		</div>
+
+		<div>
+			<h3>Precio:</h3>
+			<p th:text="${vueloSeleccionado.get().precioBruto}"></p>
+		</div>
+
+		<div>
+			<h3>Total Precio mas impuestos:</h3>
+			<p th:text="${Impuestos}"></p>
+		</div>
+
+
+
+		<form class="form-ticket" action="/venta_pasaje" method="post">
+			<div>
+				<h3 class="item-form-ticket">Listado de asientos:</h3>
+				<select class="item-form-ticket lista-asientos" id="id" name="asiento">
+					<option th:each="asiento : ${asientos}" th:value="${asiento.id}"
+						th:text="${'Fila:' + asiento.fila + ' -  Asiento: ' + asiento.numero}"></option>
+				</select>
+				<button class="btn-enviar item-form-ticket" type="submit">Emitir Ticket</button>
+			</div>
 		</form>
-		
 
 	</div>
-	
+
+	</body>
+
 	<style>
-		
 		body {
 			margin: 0;
 			padding: 0;
 			background-image: url('/images/background-image.jpg');
-			
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			background-size: cover;
 			background-position: center;
 			height: 100vh;
-		
+
 		}
 
 		header {
 			display: flex;
 			justify-content: space-between;
 			box-shadow: 0px 4px 6px rgb(0, 128, 192);
-		
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			padding: 20px;
 		}
-		
+
 
 		.enlace-div {
 			flex: 1;
@@ -108,12 +131,12 @@
 
 		.enlace-div a:hover {
 			color: #103763;
-	
+
 		}
 
-		.enlace-div a.cliente {
+		.enlace-div a.venta-pasaje {
 			color: #103763;
-			
+
 
 		}
 
@@ -123,12 +146,81 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		
-		.btn-enviar{
+
+		h3,
+		p {
+			display: inline-block;
+			margin-right: 20px;
+			font-size: 20px;
+		}
+
+		h1,
+		h2 {
+			font-size: 22px;
+		}
+
+		h1 {
+			background-color: rgba(16, 55, 99, 0.9);
+			margin: 0 auto;
+			padding: 20px 0px;
+		}
+
+		.form-ticket {
+			display: block;
+			width: auto;
+			margin: 1em 0 1em 0;
+			padding: 0;
+		}
+
+		.ticket-contenedor {
+			width: 40%;
+			max-width: 40%;
+			height: 80vh;
+			max-height: 80vh;
+			margin: 0 auto;
+			color: white;
+			position: absolute;
+			top: 55%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			background-color: rgba(16, 55, 99, 0.7);
+			overflow: hidden;
+			overflow-y: auto;
+		}
+
+		.ticket-contenedor div {
+			width: 72%;
+			max-width: 72%;
+			margin: 5px auto;
+			text-align: left;
+		}
+
+		form div {
+			width: 72%;
+			max-width: 72%;
+			margin: 8px auto;
+			text-align: left;
+			justify-content: space-between;
+		}
+
+		.item-form-ticket {
+			margin-right: 30px;
+		}
+
+
+		.lista-asientos {
+			padding: 5px 9px;
+			border: none;
+			outline: none;
+			background-color: #f0f0f0;
+			cursor: pointer;
+
+		}
+
+		.btn-enviar {
 			border: 0px solid black;
-	
 			border-radius: 2px;
-			
 			font-size: 14px;
 			background-color: white;
 			padding: 5px 10px;
@@ -137,7 +229,7 @@
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-weight: bold;
 			transition: background-color 0.3s, color 0.3s;
-		
+
 		}
 
 		.btn-enviar:hover {
@@ -145,25 +237,7 @@
 			color: white;
 
 		}
-
-		
-		.tabla-scrollable {
-			width: 95%;
-	
-			max-height: 92vh;
-			
-			overflow-y: auto;
-			margin: 0 auto;
-	
-		}
-
-		
-		.tabla-scrollable thead th {
-			position: sticky;
-			top: 0;
-		}
 	</style>
 
-</body>
 
 </html>
