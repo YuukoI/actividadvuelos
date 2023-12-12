@@ -10,48 +10,63 @@
 
 <body>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center-card">
-				<h1 class="text-center">Modificar Ciudades</h1>
-				<div class="card-body">
-					<form th:action="@{/ciudades/{id}(id=${ciudad.id})}" th:object="${ciudad}" method="post">
-						<div class="form-group">
-							<label>Nombre: </label>
-							<input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Nombre"
-								required>
-						</div>
-						<br> 
-						<div class="box-footer">
-							<button class="btn btn-success"> Editar </button>
-						</div>
-					</form>
-				</div>
-			</div>
+	<header>
+		<div class="enlace-div">
+			<a href="/impuestos">IMPUESTOS</a>
 		</div>
+		<div class="enlace-div">
+			<a href="/clientes">CLIENTES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/validacion_cliente">VENTA DE PASAJES</a>
+		</div>
+		<div class="enlace-div">
+			<a class="ciudad" href="/ciudades">CIUDADES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/vuelos">VUELOS</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/aviones">AVIONES</a>
+		</div>
+	</header>
+
+	<div class="contenedor-modificacion-ciudad">
+		<h1 class="text-center">MODIFICAR CIUDAD</h1>
+
+		<form th:action="@{/ciudades/{id}(id=${ciudad.id})}" th:object="${ciudad}" method="post">
+			<div class="form-group item-form">
+				<label class="label">Nombre:</label>
+				<input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Nombre"
+					required>
+
+				<div class="box-footer">
+					<button class="btn btn-enviar item-form"> Editar </button>
+				</div>
+		</form>
 	</div>
-	
+
+
 	<style>
-		
 		body {
 			margin: 0;
 			padding: 0;
 			background-image: url('/images/background-image.jpg');
-			
+
 			background-size: cover;
 			background-position: center;
 			height: 100vh;
-		
+
 		}
 
 		header {
 			display: flex;
 			justify-content: space-between;
 			box-shadow: 0px 4px 6px rgb(0, 128, 192);
-		
+
 			padding: 20px;
 		}
-		
+
 
 		.enlace-div {
 			flex: 1;
@@ -60,13 +75,11 @@
 
 		.enlace-div a:hover {
 			color: #103763;
-	
+
 		}
 
-		.enlace-div a.ciudades {
+		.enlace-div a.ciudad {
 			color: #103763;
-			
-
 		}
 
 		.enlace-div a {
@@ -75,12 +88,42 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		
-		.btn-enviar{
+
+		.contenedor-modificacion-ciudad {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: white;
+			background-color: rgba(16, 55, 99, 0.5);
+			margin: 0 auto;
+			min-width: 30%;
+			max-width: 30%;
+			min-height: 30%;
+			max-height: 30%;
+			text-align: center;
+		}
+
+		h1 {
+			margin: 15px auto;
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.item-form {
+			max-width: 90%;
+			margin: 15px auto;
+		}
+
+		.label {
+			display: flex;
+			text-align: left;
+			margin-bottom: 10px;
+		}
+
+		.btn-enviar {
 			border: 0px solid black;
-	
 			border-radius: 2px;
-			
 			font-size: 14px;
 			background-color: white;
 			padding: 5px 10px;
@@ -89,30 +132,13 @@
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-weight: bold;
 			transition: background-color 0.3s, color 0.3s;
-		
+
 		}
 
 		.btn-enviar:hover {
 			background-color: #103763;
 			color: white;
 
-		}
-
-		
-		.tabla-scrollable {
-			width: 95%;
-	
-			max-height: 92vh;
-			
-			overflow-y: auto;
-			margin: 0 auto;
-	
-		}
-
-		
-		.tabla-scrollable thead th {
-			position: sticky;
-			top: 0;
 		}
 	</style>
 </body>

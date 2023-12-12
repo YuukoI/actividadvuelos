@@ -15,63 +15,69 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center-card">
 				<h1 class="text-center">Modificar Vuelos</h1>
 				<div class="card-body">
-					<form th:action="@{/vuelos/{nroVuelo}(nroVuelo=${vuelo.nroVuelo})}" th:object="${vuelo}" method="post">
-						
+					<form th:action="@{/vuelos/{nroVuelo}(nroVuelo=${vuelo.nroVuelo})}" th:object="${vuelo}"
+						method="post">
+
 						<div class="form-group">
 							<label>Numero de Vuelo: </label>
-							<input type="text" name="nroVuelo" th:field="*{nroVuelo}" class="form-control" placeholder="Numero de vuelo"
-								required>
+							<input type="text" name="nroVuelo" th:field="*{nroVuelo}" class="form-control"
+								placeholder="Numero de vuelo" required>
 						</div>
 						<br>
 						<div class="form-group">
-                			<label for="ciudadOrigen">Origen:</label>
-                			<select class="form-control" th:field="*{ciudadOrigen}" required>
-                    		<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" required></option>
-               				</select>
-            			</div>
-						<br>
-            			<div class="form-group">
-                			<label for="ciudadDestino">Destino:</label>
-                			<select class="form-control" th:field="*{ciudadDestino}" required>
-                    		<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}" required></option>
-                			</select>
-            			</div>
-            			<br>
-           				<div class="form-group">
-                			<label for="tipoVuelo">Tipo de Vuelo:</label>
-                			<select class="form-control" th:field="*{tipoVuelo}" required>
-                    		<option value="NACIONAL">Nacional</option>
-                    		<option value="INTERNACIONAL">Internacional</option>
-                			</select>
-            			</div>
-            			<br>
-          				<div class="form-group">
-    						<label for="vuelo.precioBruto">Precio del Pasaje:</label>
-     						<input type="number" step="0.01" min="0" id="precioBruto" name="precioBruto" th:field="${vuelo.precioBruto}" required/>
+							<label for="ciudadOrigen">Origen:</label>
+							<select class="form-control" th:field="*{ciudadOrigen}" required>
+								<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}"
+									th:text="${ciudad.nombre}" required></option>
+							</select>
 						</div>
 						<br>
-           				<div class="form-group">
-                			<label for="fechaHora">Fecha y Hora de Partida:</label>
-            				<input type="datetime-local" th:field="*{fechaHora}" pattern="yyyy-MM-ddTHH:mm" required />
-          				</div>
+						<div class="form-group">
+							<label for="ciudadDestino">Destino:</label>
+							<select class="form-control" th:field="*{ciudadDestino}" required>
+								<option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}"
+									th:text="${ciudad.nombre}" required></option>
+							</select>
+						</div>
 						<br>
-           				<div class="form-group">
-             				<label for="avion">Avión:</label>
-             				<select class="form-control" th:field="*{avion}" required>
-             				<option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre + ' - Capacidad: ' + avion.nroFilas * avion.nroSillasFila}" required></option>
-             				</select>
-          				</div>
-          				<br>
-          				<div class="form-group">
-                			<label for="estado">Estado:</label>
-                			<select class="form-control" th:field="*{estado}" required>
-                    		<option value="NORMAL">NORMAL</option>
-                    		<option value="REPROGRAMADO">REPROGRAMADO</option>
-                    		<option value="CANCELADO">CANCELADO</option>	
-                			</select>
-            			</div>
-            			<br>
-						<br> 
+						<div class="form-group">
+							<label for="tipoVuelo">Tipo de Vuelo:</label>
+							<select class="form-control" th:field="*{tipoVuelo}" required>
+								<option value="NACIONAL">Nacional</option>
+								<option value="INTERNACIONAL">Internacional</option>
+							</select>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="vuelo.precioBruto">Precio del Pasaje:</label>
+							<input type="number" step="0.01" min="0" id="precioBruto" name="precioBruto"
+								th:field="${vuelo.precioBruto}" required />
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="fechaHora">Fecha y Hora de Partida:</label>
+							<input type="datetime-local" th:field="*{fechaHora}" pattern="yyyy-MM-ddTHH:mm" required />
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="avion">Avión:</label>
+							<select class="form-control" th:field="*{avion}" required>
+								<option th:each="avion : ${aviones}" th:value="${avion.id}"
+									th:text="${avion.nombre + ' - Capacidad: ' + avion.nroFilas * avion.nroSillasFila}"
+									required></option>
+							</select>
+						</div>
+						<br>
+						<div class="form-group">
+							<label for="estado">Estado:</label>
+							<select class="form-control" th:field="*{estado}" required>
+								<option value="NORMAL">NORMAL</option>
+								<option value="REPROGRAMADO">REPROGRAMADO</option>
+								<option value="CANCELADO">CANCELADO</option>
+							</select>
+						</div>
+						<br>
+						<br>
 						<div class="box-footer">
 							<button class="btn btn-success"> Editar </button>
 						</div>
@@ -80,28 +86,27 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<style>
-		
 		body {
 			margin: 0;
 			padding: 0;
 			background-image: url('/images/background-image.jpg');
-			
+
 			background-size: cover;
 			background-position: center;
 			height: 100vh;
-		
+
 		}
 
 		header {
 			display: flex;
 			justify-content: space-between;
 			box-shadow: 0px 4px 6px rgb(0, 128, 192);
-		
+
 			padding: 20px;
 		}
-		
+
 
 		.enlace-div {
 			flex: 1;
@@ -110,12 +115,12 @@
 
 		.enlace-div a:hover {
 			color: #103763;
-	
+
 		}
 
 		.enlace-div a.vuelos {
 			color: #103763;
-			
+
 
 		}
 
@@ -125,12 +130,12 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		
-		.btn-enviar{
+
+		.btn-enviar {
 			border: 0px solid black;
-	
+
 			border-radius: 2px;
-			
+
 			font-size: 14px;
 			background-color: white;
 			padding: 5px 10px;
@@ -139,7 +144,7 @@
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-weight: bold;
 			transition: background-color 0.3s, color 0.3s;
-		
+
 		}
 
 		.btn-enviar:hover {
@@ -148,18 +153,18 @@
 
 		}
 
-		
+
 		.tabla-scrollable {
 			width: 95%;
-	
+
 			max-height: 92vh;
-			
+
 			overflow-y: auto;
 			margin: 0 auto;
-	
+
 		}
 
-		
+
 		.tabla-scrollable thead th {
 			position: sticky;
 			top: 0;

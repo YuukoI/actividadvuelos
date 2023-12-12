@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	
+
 	<header>
 		<div class="enlace-div">
 			<a href="/impuestos">IMPUESTOS</a>
@@ -39,8 +39,8 @@
 					<form th:action="@{/ciudades}" th:object="${ciudad}" method="post">
 						<div class="form-group">
 							<label>Nombre: </label>
-							<input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ingrese nombre"
-								required>
+							<input type="text" name="nombre" th:field="*{nombre}" class="form-control"
+								placeholder="Ingrese nombre" required>
 						</div>
 						<br>
 						<div class="box-footer">
@@ -51,28 +51,27 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<style>
-		
 		body {
 			margin: 0;
 			padding: 0;
 			background-image: url('/images/background-image.jpg');
-			
+
 			background-size: cover;
 			background-position: center;
 			height: 100vh;
-		
+
 		}
 
 		header {
 			display: flex;
 			justify-content: space-between;
 			box-shadow: 0px 4px 6px rgb(0, 128, 192);
-		
+
 			padding: 20px;
 		}
-		
+
 
 		.enlace-div {
 			flex: 1;
@@ -81,12 +80,12 @@
 
 		.enlace-div a:hover {
 			color: #103763;
-	
+
 		}
 
 		.enlace-div a.cliente {
 			color: #103763;
-			
+
 
 		}
 
@@ -96,12 +95,12 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		
-		.btn-enviar{
+
+		.btn-enviar {
 			border: 0px solid black;
-	
+
 			border-radius: 2px;
-			
+
 			font-size: 14px;
 			background-color: white;
 			padding: 5px 10px;
@@ -110,7 +109,7 @@
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-weight: bold;
 			transition: background-color 0.3s, color 0.3s;
-		
+
 		}
 
 		.btn-enviar:hover {
@@ -119,18 +118,18 @@
 
 		}
 
-		
+
 		.tabla-scrollable {
 			width: 95%;
-	
+
 			max-height: 92vh;
-			
+
 			overflow-y: auto;
 			margin: 0 auto;
-	
+
 		}
 
-		
+
 		.tabla-scrollable thead th {
 			position: sticky;
 			top: 0;

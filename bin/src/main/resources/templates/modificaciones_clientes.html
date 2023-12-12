@@ -10,86 +10,98 @@
 
 <body>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center-card">
-				<h1 class="text-center">Modificar Cliente</h1>
-				<div class="card-body">
-
-					<form th:action="@{/clientes/{dni}(dni=${cliente.dni})}" th:object="${cliente}" method="post">
-						<div class="form-group">
-							<label>DNI: </label>
-							<input type="number" name="dni" th:field="*{dni}" class="form-control" placeholder="DNI"
-								required>
-						</div>
-
-						<div class="form-group">
-							<label>Nombre: </label>
-							<input type="text" name="nombre" th:field="*{nombre}" class="form-control"
-								placeholder="Nombre" required>
-						</div>
-
-						<div class="form-group">
-							<label>Apellido: </label>
-							<input type="text" name="apellido" th:field="*{apellido}" class="form-control"
-								placeholder="Apellido" required>
-						</div>
-
-						<div class="form-group">
-							<label>Domicilio: </label>
-							<input type="text" name="domicilio" th:field="*{domicilio}" class="form-control"
-								placeholder="Domicilio" required>
-						</div>
-
-						<div class="form-group">
-							<label>E-Mail: </label>
-							<input type="text" name="email" th:field="*{email}" class="form-control"
-								placeholder="E-Mail" required>
-						</div>
-
-						<div class="form-group">
-							<label>Fecha de Nacimiento: </label>
-							<input type="date" name="fechaNacimiento" th:field="*{fechaNacimiento}" class="form-control"
-								placeholder="Fecha de Nacimiento" required>
-						</div>
-
-						<div class="form-group">
-							<label>Pasaporte: </label>
-							<input type="text" name="pasaporte" th:field="*{nroPasaporte}" class="form-control"
-								placeholder="Pasaporte">
-						</div>
-
-						<br>
-						<div class="box-footer">
-							<button class="btn btn-success"> Editar </button>
-						</div>
-					</form>
-				</div>
-			</div>
+	<header>
+		<div class="enlace-div">
+			<a href="/impuestos">IMPUESTOS</a>
 		</div>
+		<div class="enlace-div">
+			<a class="cliente" href="/clientes">CLIENTES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/validacion_cliente">VENTA DE PASAJES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/ciudades">CIUDADES</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/vuelos">VUELOS</a>
+		</div>
+		<div class="enlace-div">
+			<a href="/aviones">AVIONES</a>
+		</div>
+	</header>
+
+	<div class="contenedor-modificacion-cliente">
+		<h1 class="text-center">MODIFICAR CLIENTE</h1>
+
+		<form th:action="@{/clientes/{dni}(dni=${cliente.dni})}" th:object="${cliente}" method="post">
+			<div class="form-group">
+				<label class="label">DNI</label>
+				<input type="number" name="dni" th:field="*{dni}" class="campo-dni form-control" placeholder="DNI"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">Nombre</label>
+				<input type="text" name="nombre" th:field="*{nombre}" class="imput form-control" placeholder="Nombre"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">Apellido</label>
+				<input type="text" name="apellido" th:field="*{apellido}" class="imput form-control"
+					placeholder="Apellido" required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">Domicilio</label>
+				<input type="text" name="domicilio" th:field="*{domicilio}" class="imput form-control"
+					placeholder="Domicilio" required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">E-Mail</label>
+				<input type="text" name="email" th:field="*{email}" class="imput form-control" placeholder="E-Mail"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">Fecha de Nacimiento</label>
+				<input type="date" name="fechaNacimiento" th:field="*{fechaNacimiento}" class="imput form-control"
+					placeholder="Fecha de Nacimiento" required>
+			</div>
+
+			<div class="form-group">
+				<label class="label">Pasaporte</label>
+				<input type="text" name="pasaporte" th:field="*{nroPasaporte}" class="imput form-control"
+					placeholder="Pasaporte">
+			</div>
+
+			<div class="box-footer form-group">
+				<button class="btn btn-enviar"> Editar </button>
+			</div>
+		</form>
 	</div>
-	
 	<style>
-		
 		body {
 			margin: 0;
 			padding: 0;
 			background-image: url('/images/background-image.jpg');
-			
+
 			background-size: cover;
 			background-position: center;
 			height: 100vh;
-		
+
 		}
 
 		header {
 			display: flex;
 			justify-content: space-between;
 			box-shadow: 0px 4px 6px rgb(0, 128, 192);
-		
+
 			padding: 20px;
 		}
-		
+
 
 		.enlace-div {
 			flex: 1;
@@ -98,12 +110,12 @@
 
 		.enlace-div a:hover {
 			color: #103763;
-	
+
 		}
 
-		.enlace-div a.clientes {
+		.enlace-div a.cliente {
 			color: #103763;
-			
+
 
 		}
 
@@ -113,21 +125,20 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		
-		.btn-enviar{
+
+		.btn-enviar {
 			border: 0px solid black;
-	
 			border-radius: 2px;
-			
 			font-size: 14px;
 			background-color: white;
-			padding: 5px 10px;
+			padding: 8px 30px;
 			color: #103763;
 			cursor: pointer;
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 			font-weight: bold;
 			transition: background-color 0.3s, color 0.3s;
-		
+
+
 		}
 
 		.btn-enviar:hover {
@@ -136,21 +147,41 @@
 
 		}
 
-		
-		.tabla-scrollable {
-			width: 95%;
-	
-			max-height: 92vh;
-			
-			overflow-y: auto;
-			margin: 0 auto;
-	
+		h1 {
+			margin: 10px auto 10px;
+			font-size: 20px;
+			font-weight: bold;
 		}
 
-		
-		.tabla-scrollable thead th {
-			position: sticky;
-			top: 0;
+		.contenedor-modificacion-cliente {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: white;
+			background-color: rgba(16, 55, 99, 0.5);
+			margin: 0 auto;
+			min-width: 50%;
+			max-width: 50%;
+			min-height: 62%;
+			max-height: 62%;
+			text-align: center;
+		}
+
+		form {
+			margin: 0 auto;
+		}
+
+		.form-group {
+			margin: 10px;
+			display: inline-block;
+			min-width: 45%;
+			max-width: 45%;
+		}
+
+		.label {
+			display: flex;
+			text-align: left;
 		}
 	</style>
 </body>
