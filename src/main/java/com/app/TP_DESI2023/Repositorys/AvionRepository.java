@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.app.TP_DESI2023.Entitys.Avion;
 
 @Repository
-public interface AvionRepository extends JpaRepository<Avion, Long>{
+public interface AvionRepository extends JpaRepository<Avion, Long> {
 
 }

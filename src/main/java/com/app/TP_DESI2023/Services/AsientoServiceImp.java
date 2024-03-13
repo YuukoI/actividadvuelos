@@ -15,14 +15,13 @@ import jakarta.persistence.TypedQuery;
 
 @Service
 public class AsientoServiceImp implements AsientoService {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	@Autowired 
+
+	@Autowired
 	private AsientoRepository asientoRepository;
 
-	
 	@Override
 	public int cantidadAsientosLibresPorVuelo(String nroVuelo) {
 		String jpql = "SELECT COUNT(a) FROM Asiento a WHERE a.reservado = false AND a.vuelo.nroVuelo = :nroVuelo";
@@ -55,10 +54,8 @@ public class AsientoServiceImp implements AsientoService {
 		query.setParameter("nroVuelo", nroVuelo);
 
 		List<Asiento> asientosDisponibles = query.getResultList();
-		
+
 		return asientosDisponibles;
 	}
-
-
 
 }

@@ -14,14 +14,13 @@ public class Asiento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private int fila;
 	private int numero;
 	private Boolean reservado;
-	
+
 	@ManyToOne
 	private Avion avion;
-	
+
 	@ManyToOne
 	private Vuelo vuelo;
 
@@ -94,6 +93,4 @@ public class Asiento {
 		this.vuelo = vuelo;
 	}
 
-	
-	
 }

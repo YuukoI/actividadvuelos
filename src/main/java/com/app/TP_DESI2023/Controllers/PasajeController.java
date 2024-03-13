@@ -109,11 +109,14 @@ public class PasajeController {
 		for (Impuesto i : impuestos) {
 			if (i.getNombre().equalsIgnoreCase("IVA")) {
 				iva = i.getMonto();
-			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+			}
+			if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
 				tasaAepNacional = i.getMonto();
-			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+			}
+			if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
 				tasaAepInternacional = i.getMonto();
-			} else {
+			}
+			if(i.getNombre().equalsIgnoreCase("COTIZACION DOLAR")){
 				cotizacionDolar = i.getMonto();
 			}
 		}
@@ -133,8 +136,7 @@ public class PasajeController {
 	}
 
 	@PostMapping("/venta_pasaje")
-	public String procesarVenta(@RequestParam(name = "asiento") Long id, HttpSession session, Model model)
-			throws CustomException {
+	public String procesarVenta(@RequestParam(name = "asiento") Long id, HttpSession session, Model model) throws CustomException {
 		Integer dni = (Integer) session.getAttribute("dni");
 		String nroVuelo = (String) session.getAttribute("nroVuelo");
 
@@ -156,6 +158,7 @@ public class PasajeController {
 		Asiento asientoSelect = asientoService.findById(id).get();
 		asientoSelect.setId(id);
 
+		
 		pasaje.setCliente(c);
 
 		pasaje.setVuelo(vueloOptional.get());
@@ -170,25 +173,29 @@ public class PasajeController {
 		for (Impuesto i : impuestos) {
 			if (i.getNombre().equalsIgnoreCase("IVA")) {
 				iva = i.getMonto();
-			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
+			}
+			if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA NACIONAL")) {
 				tasaAepNacional = i.getMonto();
-			} else if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
+			}
+			if (i.getNombre().equalsIgnoreCase("TASA AEROPUERTARIA INTERNACIONAL")) {
 				tasaAepInternacional = i.getMonto();
-			} else {
+			}
+			if(i.getNombre().equalsIgnoreCase("COTIZACION DOLAR")){
 				cotizacionDolar = i.getMonto();
 			}
 		}
 
 		if (vueloOptional.get().getTipoVuelo().equalsIgnoreCase("Nacional")) {
 
-			pasaje.setPrecio((vueloOptional.get().getPrecioBruto()
-					+ (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
-
+			pasaje.setPrecio((vueloOptional.get().getPrecioBruto() + (vueloOptional.get().getPrecioBruto() + tasaAepNacional * (iva / 100))));
 		} else {
-
 			pasaje.setPrecio((vueloOptional.get().getPrecioBruto() * cotizacionDolar + tasaAepInternacional));
 		}
-		pasajeService.crearPasaje(pasaje);
+		
+		pasaje.setFechaHora(vueloOptional.get().getFechaHora());
+		
+		//ERROR EN EL TP ENTREGADO, GUARDA EL PASAJE ANTES DE TIRAR EL ERROR DE NO TENER PASAPORTE Y SE TERMINABA GUARDANDO IGUAL.
+		//pasajeService.crearPasaje(pasaje);
 
 		session.setAttribute("id", pasaje.getId());
 
@@ -196,6 +203,8 @@ public class PasajeController {
 			if (c.getNroPasaporte() == null) {
 				throw new CustomException("No puede comprar un pasaje Internacional sin tener Pasaporte.");
 			}
+			
+			pasajeService.crearPasaje(pasaje);
 			
 			asientoSelect.setReservado(true);
 			asientoService.actualizarAsiento(asientoSelect);
@@ -211,7 +220,7 @@ public class PasajeController {
 		Long id = (Long) session.getAttribute("id");
 
 		if (!pasajeService.findById(id).isPresent()) {
-			throw new CustomException("no se pudo vender el pasaje");
+			throw new CustomException("No se pudo vender el pasaje");
 		}
 
 		String mensajeExito = "¡Pasaje emitido con éxito!";
@@ -221,5 +230,4 @@ public class PasajeController {
 		return "finalizar_venta";
 
 	}
-
 }

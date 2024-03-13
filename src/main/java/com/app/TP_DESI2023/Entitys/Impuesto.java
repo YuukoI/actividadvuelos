@@ -10,11 +10,8 @@ public class Impuesto {
 
 	@Id
 	private Long id;
-	
 	private String nombre;
-	
 	private String unidadMedida;
-	
 	private Double monto;
 
 	public Long getId() {
@@ -48,7 +45,5 @@ public class Impuesto {
 	public void setUnidadMedida(String unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-	
-	
-	
+
 }

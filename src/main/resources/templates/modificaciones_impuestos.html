@@ -35,20 +35,20 @@
 
 
 	<div class="contenedor-centrado">
-		<h1 class="txt-impuesto item-impuesto" >MODIFICAR IMPUESTO</h1>
-			<form th:action="@{/impuestos/{id}(id=${impuesto?.id})}" th:object="${impuesto}" method="post">
-				<div class="form-group">
-					<label class="txt-impuesto item-impuesto">NUEVO MONTO: </label>
-					<input class="imput item-impuesto" type="number" step="0.01" id="monto" name="monto" th:field="${impuesto.monto}" required
-						th:min="0" th:max="${impuesto.id == 1 ? 100 : null}" />
-				</div>
-				<br>
-				<div class="box-footer">
-					<button class="btn btn-enviar"> Editar </button>
-				</div>
-			</form>
+		<h1 class="txt-impuesto item-impuesto">MODIFICAR IMPUESTO</h1>
+		<form th:action="@{/impuestos/{id}(id=${impuesto?.id})}" th:object="${impuesto}" method="post">
+			<div class="form-group">
+				<label class="txt-impuesto item-impuesto">NUEVO MONTO: </label>
+				<input class="imput item-impuesto" type="number" step="0.01" id="monto" name="monto"
+					th:field="${impuesto.monto}" required th:min="0" th:max="${impuesto.id == 1 ? 100 : null}" />
+			</div>
+			<br>
+			<div class="box-footer">
+				<button class="btn btn-enviar"> Editar </button>
+			</div>
+		</form>
 	</div>
-	
+
 
 	<style>
 		body {
@@ -93,34 +93,35 @@
 			font-weight: bold;
 		}
 
-		.contenedor-centrado{
+		.contenedor-centrado {
 			padding: 13px 68px;
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			text-align: center;
-			background-color: rgba(16, 55, 99, 0.4); 
+			background-color: rgba(16, 55, 99, 0.4);
 		}
-		.item-impuesto{
+
+		.item-impuesto {
 			margin: 10px;
 		}
-		
+
 		.txt-impuesto {
 			text-align: center;
 			font-size: 22px;
 			font-weight: bold;
 			color: white;
 		}
-		
-		.imput{
+
+		.imput {
 			border: none;
 			outline: none;
 			width: 125px;
 			height: 25px;
 			font-size: 15px;
 		}
-		
+
 
 
 		.btn-enviar {

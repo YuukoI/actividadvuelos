@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.app.TP_DESI2023.Entitys.Pasaje;
 
 @Repository
-public interface PasajeRepository extends JpaRepository<Pasaje, Long>{
+public interface PasajeRepository extends JpaRepository<Pasaje, Long> {
 
 }

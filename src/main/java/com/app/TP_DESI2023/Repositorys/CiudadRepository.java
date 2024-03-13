@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.app.TP_DESI2023.Entitys.Ciudad;
 
 @Repository
-public interface CiudadRepository extends JpaRepository<Ciudad, Long>{
+public interface CiudadRepository extends JpaRepository<Ciudad, Long> {
 
 }

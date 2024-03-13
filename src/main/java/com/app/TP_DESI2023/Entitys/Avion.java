@@ -13,21 +13,20 @@ public class Avion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private String nombre;
 	private int nroFilas;
 	private int nroSillasFila;
 	private int cantidadSillas;
-	
-    public Avion() {
-    }
 
-    public Avion(String nombre,int nroFilas, int nroSillasFila) {
-    	this.nombre = nombre;
-        this.nroFilas = nroFilas;
-        this.nroSillasFila = nroSillasFila;
-        this.cantidadSillas = nroFilas * nroSillasFila;
-    }
+	public Avion() {
+	}
+
+	public Avion(String nombre, int nroFilas, int nroSillasFila) {
+		this.nombre = nombre;
+		this.nroFilas = nroFilas;
+		this.nroSillasFila = nroSillasFila;
+		this.cantidadSillas = nroFilas * nroSillasFila;
+	}
 
 	public Long getId() {
 		return id;
@@ -69,6 +68,4 @@ public class Avion {
 		this.cantidadSillas = cantidadSillas;
 	}
 
-
-	
 }

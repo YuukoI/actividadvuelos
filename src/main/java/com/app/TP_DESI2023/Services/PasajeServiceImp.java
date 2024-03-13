@@ -9,11 +9,11 @@ import com.app.TP_DESI2023.Entitys.Pasaje;
 import com.app.TP_DESI2023.Repositorys.PasajeRepository;
 
 @Service
-public class PasajeServiceImp implements PasajeService{
-	
-	@Autowired 
+public class PasajeServiceImp implements PasajeService {
+
+	@Autowired
 	private PasajeRepository pasajeRepository;
-	
+
 	@Override
 	public Pasaje crearPasaje(Pasaje pasaje) {
 		return pasajeRepository.save(pasaje);
@@ -23,6 +23,5 @@ public class PasajeServiceImp implements PasajeService{
 	public Optional<Pasaje> findById(Long id) {
 		return pasajeRepository.findById(id);
 	}
-	
 
 }

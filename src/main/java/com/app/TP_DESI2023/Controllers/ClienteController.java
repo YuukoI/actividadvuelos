@@ -45,7 +45,7 @@ public class ClienteController {
 	@PostMapping("/clientes/{dni}")
 	public String actualizarCliente(@PathVariable int dni, @ModelAttribute("cliente") Cliente cliente, Model model) {
 		Cliente clienteBuscado = clienteService.obtenerClientePorDni(dni);
-		
+
 		cliente.setId(clienteBuscado.getId());
 		clienteService.editarCliente(cliente);
 		return "redirect:/clientes";

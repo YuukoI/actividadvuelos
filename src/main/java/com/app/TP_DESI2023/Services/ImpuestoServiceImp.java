@@ -10,11 +10,11 @@ import com.app.TP_DESI2023.Entitys.Impuesto;
 import com.app.TP_DESI2023.Repositorys.ImpuestoRepository;
 
 @Service
-public class ImpuestoServiceImp implements ImpuestoService{
+public class ImpuestoServiceImp implements ImpuestoService {
 
 	@Autowired
 	private ImpuestoRepository impuestoRepository;
-	
+
 	@Override
 	public Impuesto editarImpuesto(Impuesto impuesto) {
 		return impuestoRepository.save(impuesto);

@@ -18,26 +18,26 @@ public class CiudadController {
 
 	@Autowired
 	private CiudadService ciudadService;
-	
+
 	@GetMapping("/ciudades")
 	public String listaCiudades(Model model) {
 		model.addAttribute("ciudades", ciudadService.obtenerCiudades());
 		return "ciudades";
 	}
-	
+
 	@PostMapping("/ciudades")
 	public String crearCiudad(@ModelAttribute("ciudad") Ciudad ciudad) {
 		ciudadService.guardarCiudad(ciudad);
 		return "redirect:/ciudades";
 	}
-	
+
 	@GetMapping("/crear_ciudad")
 	public String formularioCrearAvion(Model model) {
 		Ciudad ciudad = new Ciudad();
 		model.addAttribute(ciudad);
 		return "crear_ciudad";
 	}
-	
+
 	@GetMapping("ciudades/editar/{id}")
 	public String editarCiudad(@PathVariable Long id, Model model) {
 		model.addAttribute("ciudad", ciudadService.obtenerCiudadPorId(id).get());

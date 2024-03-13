@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.app.TP_DESI2023.Entitys.Impuesto;
 
 @Repository
-public interface ImpuestoRepository extends JpaRepository<Impuesto, Long>{
+public interface ImpuestoRepository extends JpaRepository<Impuesto, Long> {
 
 }

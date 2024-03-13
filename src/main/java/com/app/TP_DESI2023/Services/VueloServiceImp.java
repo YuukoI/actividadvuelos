@@ -85,41 +85,38 @@ public class VueloServiceImp implements VueloService {
 	@Override
 	public List<Vuelo> ordenarPorFechaMasCercana() {
 		String jpql = "SELECT v FROM Vuelo v ORDER BY v.fechaHora ASC";
-		
+
 		TypedQuery<Vuelo> query = entityManager.createQuery(jpql, Vuelo.class);
-		
+
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Vuelo> filtrarVuelos(LocalDate fecha, Long origenId, Long destinoId, String tipoVuelo) {
-	    List<Vuelo> vuelos = new ArrayList<>();
+		List<Vuelo> vuelos = new ArrayList<>();
 
-	    if (fecha != null) {
-	        vuelos = obtenerVuelosPorFecha(fecha);
-	    } else {
-	        vuelos = ordenarPorFechaMasCercana();
-	    }
+		if (fecha != null) {
+			vuelos = obtenerVuelosPorFecha(fecha);
+		} else {
+			vuelos = ordenarPorFechaMasCercana();
+		}
 
-	    if (origenId != null) {
-	        vuelos = vuelos.stream()
-	            .filter(vuelo -> vuelo.getCiudadOrigen().getId().equals(origenId))
-	            .collect(Collectors.toList());
-	    }
+		if (origenId != null) {
+			vuelos = vuelos.stream().filter(vuelo -> vuelo.getCiudadOrigen().getId().equals(origenId))
+					.collect(Collectors.toList());
+		}
 
-	    if (destinoId != null) {
-	        vuelos = vuelos.stream()
-	            .filter(vuelo -> vuelo.getCiudadDestino().getId().equals(destinoId))
-	            .collect(Collectors.toList());
-	    }
+		if (destinoId != null) {
+			vuelos = vuelos.stream().filter(vuelo -> vuelo.getCiudadDestino().getId().equals(destinoId))
+					.collect(Collectors.toList());
+		}
 
-	    if (tipoVuelo != null && !tipoVuelo.isEmpty()) {
-	        vuelos = vuelos.stream()
-	            .filter(vuelo -> vuelo.getTipoVuelo().equalsIgnoreCase(tipoVuelo))
-	            .collect(Collectors.toList());
-	    }
+		if (tipoVuelo != null && !tipoVuelo.isEmpty()) {
+			vuelos = vuelos.stream().filter(vuelo -> vuelo.getTipoVuelo().equalsIgnoreCase(tipoVuelo))
+					.collect(Collectors.toList());
+		}
 
-	    return vuelos;
+		return vuelos;
 	}
 
 }

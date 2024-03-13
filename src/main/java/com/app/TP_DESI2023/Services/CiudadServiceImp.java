@@ -10,9 +10,9 @@ import com.app.TP_DESI2023.Entitys.Ciudad;
 import com.app.TP_DESI2023.Repositorys.CiudadRepository;
 
 @Service
-public class CiudadServiceImp implements CiudadService{
-	
-	@Autowired 
+public class CiudadServiceImp implements CiudadService {
+
+	@Autowired
 	private CiudadRepository ciudadRepository;
 
 	@Override
@@ -28,7 +28,7 @@ public class CiudadServiceImp implements CiudadService{
 	@Override
 	public void borrarCiudad(Long id) {
 		ciudadRepository.deleteById(id);
-		
+
 	}
 
 	@Override

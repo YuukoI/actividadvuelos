@@ -18,16 +18,16 @@ public class ImpuestoController {
 
 	@Autowired
 	private ImpuestoService impuestoService;
-	
+
 	@GetMapping("/impuestos")
 	public String listaImpuestos(Model model) {
 		model.addAttribute("impuestos", impuestoService.obtenerImpuestos());
 		return "impuestos";
 	}
-	
+
 	@GetMapping("impuestos/editar/{id}")
 	public String editarImpuesto(@PathVariable Long id, Model model) {
-		if(impuestoService.obtenerImpuestoPorId(id).get().getNombre().equalsIgnoreCase("IVA")) {
+		if (impuestoService.obtenerImpuestoPorId(id).get().getNombre().equalsIgnoreCase("IVA")) {
 			model.addAttribute("impuesto", impuestoService.obtenerImpuestoPorId(id).get());
 			return "modificaciones_impuestos";
 		}
@@ -36,7 +36,8 @@ public class ImpuestoController {
 	}
 
 	@PostMapping("/impuestos/{id}")
-	public String actualizarImpuesto(@PathVariable Long id, @ModelAttribute("impuesto") Impuesto impuesto, Model model) {
+	public String actualizarImpuesto(@PathVariable Long id, @ModelAttribute("impuesto") Impuesto impuesto,
+			Model model) {
 		Optional<Impuesto> impuestoOptional = impuestoService.obtenerImpuestoPorId(id);
 		impuesto.setId(impuestoOptional.get().getId());
 		impuesto.setNombre(impuestoOptional.get().getNombre());
@@ -44,5 +45,5 @@ public class ImpuestoController {
 		impuestoService.editarImpuesto(impuesto);
 		return "redirect:/impuestos";
 	}
-	
+
 }
